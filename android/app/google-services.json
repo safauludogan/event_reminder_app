@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "535678825171",
+    "project_id": "event-reminder-app-ff45f",
+    "storage_bucket": "event-reminder-app-ff45f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:535678825171:android:9072e2f5d4824214aa5a26",
+        "android_client_info": {
+          "package_name": "com.bsf.event_reminder_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "535678825171-vemrsiib9u9r18uht6plbdf5bi4q5ops.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCfSZHaw3IOaP3SCFyI1XLCEQir_258sg8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "535678825171-vemrsiib9u9r18uht6plbdf5bi4q5ops.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
