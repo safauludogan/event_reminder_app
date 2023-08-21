@@ -1,9 +1,9 @@
-import 'package:flutter/material.dart';
 import 'package:event_reminder_app/core/authentication_manager/authentication_manager.dart';
-import 'package:event_reminder_app/core/init/styles/textstyles.dart';
+import 'package:event_reminder_app/core/extension/context_extension.dart';
 import 'package:event_reminder_app/features/authentication/login/model/login_response_model.dart';
 import 'package:event_reminder_app/product/manager/database/operations/login_hive_operation.dart';
 import 'package:event_reminder_app/product/manager/theme/theme_manager.dart';
+import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class Page1View extends StatefulWidget {
@@ -38,7 +38,6 @@ class _Page1ViewState extends State<Page1View> {
           children: [
             ElevatedButton(
               onPressed: () => context.read<ThemeManager>().changeTheme(),
-              style: Styles.buttonStyle,
               child: const Text(
                 'Change Theme',
               ),
@@ -53,7 +52,7 @@ class _Page1ViewState extends State<Page1View> {
               onPressed: () async {
                 await _loginHiveOperation.clear();
               },
-              child: Text('Delete', style: Styles.textStyle),
+              child: Text('Delete', style: context.textTheme.bodySmall),
             )
           ],
         ),

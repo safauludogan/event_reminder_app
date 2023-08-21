@@ -1,15 +1,11 @@
-import 'package:flutter/material.dart';
 import 'package:event_reminder_app/core/constants/colors.dart';
+import 'package:flutter/material.dart';
 
-class ThemeDark {
-  ThemeDark._init();
-  static ThemeDark? _instance;
-  static ThemeDark get instance {
-    _instance ??= ThemeDark._init();
-    return _instance!;
-  }
+class CustomThemeDark {
+  CustomThemeDark(this.context);
+  BuildContext context;
 
-  ThemeData? get theme => ThemeData(
+  ThemeData? get theme => ThemeData.dark().copyWith(
         useMaterial3: true,
         scaffoldBackgroundColor: Colors.black,
         primaryColor: ColorConstants.primaryColor,

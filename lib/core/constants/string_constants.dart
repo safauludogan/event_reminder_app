@@ -5,6 +5,7 @@ class StringConstants {
   const StringConstants._();
 
   static const String baseUrl = 'ss';
+  static const String login = 'Giriş yap';
   static const String noInternetConnection = 'İnternet bağlantısı yok!!!';
   static const String success = 'Başarılı';
   static const String error = 'Hata';
@@ -21,4 +22,11 @@ class StringConstants {
   static const String passwordIsEmpty = 'Şifrenizi giriniz';
   static const String somethingError = 'Bir hata oluştu';
   static const String noConnectionServer = 'Sunucu bağlantısı sağlanamadı';
+}
+
+@immutable
+class FirebaseStrings {
+  const FirebaseStrings._();
+  static const String googleClientId =
+      '535678825171-1nqisrnl1v5pu156e9k07nh1soae3g0f.apps.googleusercontent.com';
 }

@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:event_reminder_app/features/authentication/login/view/login_view.dart';
+import 'package:event_reminder_app/features/authentication/login/view/signin_view.dart';
+import 'package:event_reminder_app/features/authentication/register/register_view.dart';
 import 'package:event_reminder_app/features/home/base/view/home_view.dart';
 import 'package:event_reminder_app/features/splash/view/splash_view.dart';
 
@@ -22,8 +23,14 @@ class AppRouter extends _$AppRouter {
           durationInMilliseconds: 400,
         ),
         CustomRoute(
-          page: LoginRoute.page,
-          path: '/loginView',
+          page: SignInRoute.page,
+          path: '/signInViewView',
+          transitionsBuilder: TransitionsBuilders.fadeIn,
+          durationInMilliseconds: 400,
+        ),
+        CustomRoute(
+          page: RegisterRoute.page,
+          path: '/registerView',
           transitionsBuilder: TransitionsBuilders.fadeIn,
           durationInMilliseconds: 400,
         ),

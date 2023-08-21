@@ -1,9 +1,9 @@
-import 'package:flutter/material.dart';
 import 'package:event_reminder_app/core/constants/colors.dart';
-import 'package:event_reminder_app/core/constants/string_constants.dart';
 import 'package:event_reminder_app/core/constants/project_variables.dart';
+import 'package:event_reminder_app/core/constants/string_constants.dart';
 import 'package:event_reminder_app/core/constants/validators.dart';
 import 'package:event_reminder_app/core/extension/context_extension.dart';
+import 'package:flutter/material.dart';
 
 bool isPasswordVisible = true;
 
@@ -47,15 +47,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
         alignLabelWithHint: true,
         prefixIcon: adapter.prefixIcon,
         labelText: adapter.labelText,
-        focusedBorder: OutlineInputBorder(
-          borderRadius: context.borderRadiusHigh,
-          borderSide: BorderSide(color: ColorConstants.primaryColor),
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: context.borderRadiusHigh,
-          borderSide: const BorderSide(color: Colors.grey),
-        ),
-        labelStyle: context.textTheme.titleSmall!.copyWith(color: Colors.grey),
+        
         prefixIconColor: MaterialStateColor.resolveWith(
           (states) => states.contains(MaterialState.focused)
               ? ColorConstants.primaryColor

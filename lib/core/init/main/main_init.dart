@@ -14,4 +14,11 @@ Future<void> _firebaseInitialize() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
+  /// Firebase Auth
+  FirebaseUIAuth.configureProviders([
+    EmailAuthProvider(),
+
+    // ... other providers
+  ]);
 }

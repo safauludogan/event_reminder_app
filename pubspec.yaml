@@ -43,6 +43,10 @@ dependencies:
   # firebase
   firebase_core: ^2.15.1
   cloud_firestore: ^4.8.5
+  firebase_auth: ^4.7.3
+  firebase_ui_auth: ^1.6.4
+  firebase_ui_oauth_google: ^1.2.8
+  firebase_ui_oauth_apple: ^1.2.8
 
   # core
   auto_route: ^7.8.0

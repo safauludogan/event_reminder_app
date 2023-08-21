@@ -1,10 +1,9 @@
 import 'dart:async';
-
 import 'package:auto_route/auto_route.dart';
-import 'package:flutter/material.dart';
 import 'package:event_reminder_app/core/authentication_manager/authentication_manager.dart';
 import 'package:event_reminder_app/main.dart';
 import 'package:event_reminder_app/product/navigator/app_router.dart';
+import 'package:flutter/material.dart';
 
 @RoutePage()
 class SplashView extends StatefulWidget {
@@ -18,7 +17,7 @@ class _SplashViewState extends State<SplashView> {
     if (AuthenticationManager().checkLoginStatus()) {
       unawaited(getIt<AppRouter>().replace(const HomeRoute()));
     } else {
-      unawaited(getIt<AppRouter>().replace(const LoginRoute()));
+      unawaited(getIt<AppRouter>().replace(const SignInRoute()));
     }
   }
 

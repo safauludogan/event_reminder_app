@@ -14,7 +14,15 @@
       },
       "oauth_client": [
         {
-          "client_id": "535678825171-vemrsiib9u9r18uht6plbdf5bi4q5ops.apps.googleusercontent.com",
+          "client_id": "535678825171-dvklbmu0021m426cv9tsl0snrvpdv4ln.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.bsf.event_reminder_app",
+            "certificate_hash": "415096eb62c0309beec220f48077032f33642deb"
+          }
+        },
+        {
+          "client_id": "535678825171-1nqisrnl1v5pu156e9k07nh1soae3g0f.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
@@ -27,8 +35,15 @@
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "535678825171-vemrsiib9u9r18uht6plbdf5bi4q5ops.apps.googleusercontent.com",
+              "client_id": "535678825171-1nqisrnl1v5pu156e9k07nh1soae3g0f.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "535678825171-ggcqjqr10lq2a66u7759lrod4gcp5et6.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.bsf.event.reminder.app"
+              }
             }
           ]
         }

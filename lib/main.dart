@@ -10,6 +10,8 @@ import 'package:event_reminder_app/product/manager/network/network_manager.dart'
 import 'package:event_reminder_app/product/manager/theme/theme_manager.dart';
 import 'package:event_reminder_app/product/navigator/app_router.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_ui_auth/firebase_ui_auth.dart';
+import 'package:firebase_ui_oauth_google/firebase_ui_oauth_google.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
@@ -22,7 +24,7 @@ Future<void> main() async {
     MultiProvider(
       providers: [
         ChangeNotifierProvider<ThemeManager>(
-          create: (_) => ThemeManager.instance,
+          create: (_) => ThemeManager(),
         )
       ],
       child: MyApp(),
@@ -41,7 +43,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp.router(
       routerConfig: router.config(),
       scrollBehavior: MyCustomScrollBehavior(),
-      theme: context.watch<ThemeManager>().getThemeData,
+      theme: context.watch<ThemeManager>().getThemeData(context),
       debugShowCheckedModeBanner: false,
       builder: (context, child) {
         NetworkManager.instance.init(context);
