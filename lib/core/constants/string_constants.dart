@@ -5,23 +5,29 @@ class StringConstants {
   const StringConstants._();
 
   static const String baseUrl = 'ss';
-  static const String login = 'Giriş yap';
-  static const String noInternetConnection = 'İnternet bağlantısı yok!!!';
-  static const String success = 'Başarılı';
-  static const String error = 'Hata';
-  static const String info = 'Bilgi';
-  static const String warning = 'Uyarı';
+  static const String login = 'SignIn';
+  static const String logout = 'Logout';
+  static const String register = 'Register';
+  static const String noInternetConnection = 'No internet connection!!!';
+  static const String success = 'Success';
+  static const String error = 'Error';
+  static const String info = 'Information';
+  static const String warning = 'Warning';
   static const String facebook = 'Facebook';
   static const String google = 'Google';
   static const String apple = 'Apple';
-  static const String loginSuccess = 'Giriş başarılı';
-  static const String enterEmail = 'E-posta adresi';
-  static const String password = 'Şifre';
-  static const String search = 'Arama';
-  static const String wrongEmail = 'Hatalı e-posta girişi';
-  static const String passwordIsEmpty = 'Şifrenizi giriniz';
-  static const String somethingError = 'Bir hata oluştu';
-  static const String noConnectionServer = 'Sunucu bağlantısı sağlanamadı';
+  static const String loginSuccess = 'Login successs';
+  static const String logoutSuccess = 'Logout successs';
+  static const String enterEmail = 'E-mail address';
+  static const String password = 'Password';
+  static const String search = 'Search';
+  static const String wrongEmail = 'Wrong e-mail address';
+  static const String passwordIsEmpty = 'Type a password';
+  static const String somethingError = 'Something error';
+  static const String noConnectionServer = 'Server connection failed';
+  static const String dontYouHaveAnAcc = "Don't you have an account?";
+  static const String donYouHaveAnAcc = 'Do you have an account?';
+  static const String verifyEmailAddress = 'Please verify your mail address\nWe sent a link!';
 }
 
 @immutable

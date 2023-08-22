@@ -1,5 +1,7 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:event_reminder_app/core/constants/string_constants.dart';
 import 'package:event_reminder_app/core/extension/context_extension.dart';
+import 'package:event_reminder_app/features/authentication/login/authantication_viewmodel.dart';
 import 'package:event_reminder_app/main.dart';
 import 'package:event_reminder_app/product/components/firebase_richtext.dart';
 import 'package:event_reminder_app/product/firebase/firebase_oauth_buttons.dart';
@@ -15,7 +17,7 @@ class RegisterView extends StatefulWidget {
   State<RegisterView> createState() => _RegisterViewState();
 }
 
-class _RegisterViewState extends State<RegisterView> {
+class _RegisterViewState extends AuthanticationViewModel<RegisterView> {
   @override
   Widget build(BuildContext context) {
     return KeyboardDismisser(
@@ -24,12 +26,7 @@ class _RegisterViewState extends State<RegisterView> {
           child: FirebaseUIActions(
             actions: [
               AuthStateChangeAction<SigningUp>(
-                (context, state) {
-                  //state.user?.sendEmailVerification();
-                  print('*' * 30);
-
-                  print(state);
-                },
+                (context, state) async {},
               ),
             ],
             child: RegisterScreen(
@@ -39,8 +36,8 @@ class _RegisterViewState extends State<RegisterView> {
                     getIt<AppRouter>().replace(const SignInRoute());
                   },
                   child: const FirebaseRichText(
-                    title: 'Do you have an account?',
-                    subtitle: ' SignIn',
+                    title: StringConstants.donYouHaveAnAcc,
+                    subtitle: ' ${StringConstants.login}',
                   ),
                 );
               },
@@ -54,17 +51,17 @@ class _RegisterViewState extends State<RegisterView> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           FirebaseSocialIconButton(
-                            listener: (oldState, newState, controller) {},
+                            listener: (oldState, newState, controller) {
+                              return null;
+                            },
                             firebaseAuthButton: GoogleAuthButton(
-                              onSignedIn: (credential) {
-                                print('*' * 30);
-                                print(credential.user);
-                                print('*' * 30);
-                              },
+                              onSignedIn: (credential) async {},
                             ),
                           ),
                           FirebaseSocialIconButton(
-                            listener: (oldState, newState, controller) {},
+                            listener: (oldState, newState, controller) {
+                              return null;
+                            },
                             firebaseAuthButton: AppleAuthButton(),
                           ),
                         ],

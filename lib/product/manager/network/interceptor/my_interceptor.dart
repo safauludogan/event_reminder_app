@@ -1,6 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:event_reminder_app/core/init/cache/locale_manager.dart';
-import 'package:event_reminder_app/product/manager/network/enum/network_headers_enum.dart';
 
 class MyInterceptor implements InterceptorsWrapper {
   @override
@@ -15,14 +13,10 @@ class MyInterceptor implements InterceptorsWrapper {
   }
 
   @override
-  Future<void> onRequest(
+  void onRequest(
     RequestOptions options,
     RequestInterceptorHandler handler,
-  ) async {
-    final token = LocaleManager.instance.getStringValue(PreferencesKeys.token);
-    if (token != null) {
-      options.headers[NetworkHeadersEnum.Authorization.value] = 'Bearer $token';
-    }
+  ) {
     return handler.next(options);
   }
 

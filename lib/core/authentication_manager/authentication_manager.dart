@@ -1,40 +1,51 @@
 import 'dart:async';
-import 'package:flutter/material.dart';
 import 'package:event_reminder_app/core/constants/string_constants.dart';
 import 'package:event_reminder_app/core/init/cache/locale_manager.dart';
 import 'package:event_reminder_app/core/init/toast/toast_service.dart';
-import 'package:event_reminder_app/features/authentication/login/model/login_response_model.dart';
-import 'package:event_reminder_app/main.dart';
+import 'package:event_reminder_app/product/exceptions/firebase_exception.dart';
 import 'package:event_reminder_app/product/manager/database/operations/login_hive_operation.dart';
-import 'package:event_reminder_app/product/navigator/app_router.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthenticationManager {
   Future<void> logOut() async {
     await LocaleManager.instance.clearAll();
-    unawaited(getIt<AppRouter>().replace(const SplashRoute()));
+    await FirebaseAuth.instance.signOut();
+    ToastService.info.show(text: StringConstants.logoutSuccess);
   }
 
   Future<void> login(
-    BuildContext context,
-    LoginResponseModel loginResponseModel,
-  ) async {
-    final _loginHiveOperation = LoginHiveOperation();
-    await _loginHiveOperation.open();
-    await _loginHiveOperation.addOrUpdateItem(loginResponseModel);
-
-    await LocaleManager.instance.setStringValue(
-      PreferencesKeys.token,
-      value: loginResponseModel.token!,
-    );
-    ToastService.success.show(text: StringConstants.loginSuccess);
-    unawaited(getIt<AppRouter>().replace(const HomeRoute()));
+    User? user, {
+    bool isOAuth = false,
+  }) async {
+    if (user == null) return;
+    if (isOAuth) {
+      await updateUserEmail(user)
+          .then((value) async => sendEmailVerification(user));
+    } else {
+      await sendEmailVerification(user);
+    }
   }
 
-  bool checkLoginStatus() {
-    final token = LocaleManager.instance.getStringValue(PreferencesKeys.token);
-    if (token != null) {
-      return true;
+  Future<void> sendEmailVerification(User user) async {
+    if (user.emailVerified) return;
+    try {
+      await user.sendEmailVerification();
+      ToastService.info.show(text: StringConstants.verifyEmailAddress);
+    } on FirebaseAuthException catch (e) {
+      FirebaseCustomExceptions(e.toString());
     }
-    return false;
+  }
+
+  Future<void> updateUserEmail(User user) async {
+    if (user.providerData.first.email == null) return;
+    await user.updateEmail(
+      user.providerData.first.email!,
+    );
+  }
+
+  Future<void> addDataToHiveDataBase() async {
+    final loginHiveOperation = LoginHiveOperation();
+    await loginHiveOperation.open();
+    //await loginHiveOperation.addOrUpdateItem(loginResponseModel);
   }
 }

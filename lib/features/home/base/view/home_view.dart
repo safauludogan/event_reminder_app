@@ -1,8 +1,8 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:flutter/material.dart';
 import 'package:event_reminder_app/core/base/view/base_view.dart';
 import 'package:event_reminder_app/core/constants/colors.dart';
 import 'package:event_reminder_app/features/home/base/viewmodel/home_viewmodel.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 @RoutePage()

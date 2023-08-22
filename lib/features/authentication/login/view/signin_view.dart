@@ -1,10 +1,11 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:event_reminder_app/core/constants/string_constants.dart';
 import 'package:event_reminder_app/core/extension/context_extension.dart';
+import 'package:event_reminder_app/features/authentication/login/authantication_viewmodel.dart';
 import 'package:event_reminder_app/main.dart';
 import 'package:event_reminder_app/product/components/firebase_richtext.dart';
 import 'package:event_reminder_app/product/firebase/firebase_oauth_buttons.dart';
 import 'package:event_reminder_app/product/navigator/app_router.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
@@ -16,7 +17,7 @@ class SignInView extends StatefulWidget {
   State<SignInView> createState() => _SignInViewState();
 }
 
-class _SignInViewState extends State<SignInView> {
+class _SignInViewState extends AuthanticationViewModel<SignInView> {
   @override
   Widget build(BuildContext context) {
     return KeyboardDismisser(
@@ -25,18 +26,7 @@ class _SignInViewState extends State<SignInView> {
           child: FirebaseUIActions(
             actions: [
               AuthStateChangeAction<SignedIn>(
-                (context, state) {
-                  //state.user?.sendEmailVerification();
-                  if (state.user?.emailVerified != null &&
-                      state.user!.emailVerified) {
-                    print(state.user);
-                    //Navigator.pushNamed(context, '/verify-email');
-                  } else {
-                    print(state.user);
-
-                    print('Email has not been verified');
-                  }
-                },
+                (context, state) async {},
               ),
             ],
             child: SignInScreen(
@@ -53,8 +43,8 @@ class _SignInViewState extends State<SignInView> {
                     getIt<AppRouter>().push(const RegisterRoute());
                   },
                   child: const FirebaseRichText(
-                    title: "Don't have an account?",
-                    subtitle: ' Register',
+                    title: StringConstants.dontYouHaveAnAcc,
+                    subtitle: ' ${StringConstants.register}',
                   ),
                 );
               },
@@ -62,33 +52,23 @@ class _SignInViewState extends State<SignInView> {
               footerBuilder: (context, action) {
                 return Padding(
                   padding: context.paddingTopLow,
-                  child: Column(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          FirebaseSocialIconButton(
-                            listener: (oldState, newState, controller) {},
-                            firebaseAuthButton: GoogleAuthButton(
-                              onSignedIn: (credential) {
-                                print('*' * 30);
-                                print(credential.user);
-                                print('*' * 30);
-                              },
-                            ),
-                          ),
-                          FirebaseSocialIconButton(
-                            listener: (oldState, newState, controller) {},
-                            firebaseAuthButton: AppleAuthButton(),
-                          ),
-                        ],
-                      ),
-                      TextButton(
-                        onPressed: () async {
-                          await FirebaseAuth.instance.signOut();
+                      FirebaseSocialIconButton(
+                        listener: (oldState, newState, controller) {
+                          return null;
                         },
-                        child: const Text('Logout'),
-                      )
+                        firebaseAuthButton: GoogleAuthButton(
+                          onSignedIn: (credential) async {},
+                        ),
+                      ),
+                      FirebaseSocialIconButton(
+                        listener: (oldState, newState, controller) {
+                          return null;
+                        },
+                        firebaseAuthButton: AppleAuthButton(),
+                      ),
                     ],
                   ),
                 );

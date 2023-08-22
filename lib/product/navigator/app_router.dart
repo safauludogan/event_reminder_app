@@ -2,7 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:event_reminder_app/features/authentication/login/view/signin_view.dart';
 import 'package:event_reminder_app/features/authentication/register/register_view.dart';
 import 'package:event_reminder_app/features/home/base/view/home_view.dart';
-import 'package:event_reminder_app/features/splash/view/splash_view.dart';
+import 'package:event_reminder_app/features/splash/splash_view.dart';
 
 part 'app_router.gr.dart';
 

@@ -1,4 +1,5 @@
 import 'package:event_reminder_app/core/authentication_manager/authentication_manager.dart';
+import 'package:event_reminder_app/core/constants/string_constants.dart';
 import 'package:event_reminder_app/core/extension/context_extension.dart';
 import 'package:event_reminder_app/features/authentication/login/model/login_response_model.dart';
 import 'package:event_reminder_app/product/manager/database/operations/login_hive_operation.dart';
@@ -23,8 +24,6 @@ class _Page1ViewState extends State<Page1View> {
   Future<void> getLoginData() async {
     await _loginHiveOperation.open();
     final result = _loginHiveOperation.getItem(LoginResponseModel().key);
-    print(result?.key);
-    print(result?.token);
   }
 
   final _loginHiveOperation = LoginHiveOperation();
@@ -42,11 +41,9 @@ class _Page1ViewState extends State<Page1View> {
                 'Change Theme',
               ),
             ),
-            IconButton(
-              onPressed: () async {
-                await AuthenticationManager().logOut();
-              },
-              icon: const Icon(Icons.login_rounded),
+            TextButton(
+              onPressed: () async => AuthenticationManager().logOut(),
+              child: const Text(StringConstants.logout),
             ),
             TextButton(
               onPressed: () async {
