@@ -21,6 +21,7 @@ abstract class SplashViewModel extends State<SplashView>
     FirebaseAuth.instance.authStateChanges().listen((User? event) async {
       if (event != null) {
         LoadingDialog(context).show();
+        await Future.delayed(Duration(seconds: 3));
         unawaited(getIt<AppRouter>().replace(const HomeRoute()));
         ToastService.success.show(text: StringConstants.loginSuccess);
         LoadingDialog(context).dissmis();

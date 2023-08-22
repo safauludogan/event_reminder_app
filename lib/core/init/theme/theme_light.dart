@@ -28,10 +28,10 @@ class CustomThemeLight {
 
   ElevatedButtonThemeData elevatedButtonTheme = ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(
-      foregroundColor: ColorConstants.primaryColor,
+      foregroundColor: Colors.white,
       textStyle:
-          const TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
-      backgroundColor: Colors.black,
+          const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+      backgroundColor: Colors.blue,
     ),
   );
 
