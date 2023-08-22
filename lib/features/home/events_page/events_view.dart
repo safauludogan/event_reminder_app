@@ -4,21 +4,51 @@ import 'package:event_reminder_app/core/extension/context_extension.dart';
 import 'package:event_reminder_app/features/authentication/login/model/login_response_model.dart';
 import 'package:event_reminder_app/product/manager/database/operations/login_hive_operation.dart';
 import 'package:event_reminder_app/product/manager/theme/theme_manager.dart';
+import 'package:event_reminder_app/product/model/notes.dart';
+import 'package:event_reminder_app/product/utility/enum/firebase_collections.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class Page1View extends StatefulWidget {
-  const Page1View({super.key});
+class EventsView extends StatefulWidget {
+  const EventsView({super.key});
 
   @override
-  State<Page1View> createState() => _Page1ViewState();
+  State<EventsView> createState() => _EventsViewState();
 }
 
-class _Page1ViewState extends State<Page1View> {
+class _EventsViewState extends State<EventsView> {
   @override
   void initState() {
     super.initState();
-    getLoginData();
+    getDataFromFirebase();
+    //getLoginData();
+  }
+
+  Future<void> getDataFromFirebase() async {
+    final response =
+        await FirebaseCollections.notes.reference.withConverter<Notes>(
+      fromFirestore: (snapshot, options) {
+        return Notes().fromFirebase(snapshot);
+      },
+      toFirestore: (value, options) {
+        return value.toJson();
+      },
+    ).get();
+
+    if (response.docs.isNotEmpty) {
+      print("x" * 100);
+      final values = response.docs.map((e) => e.data()).toList();
+      for (final data in values) {
+        print(data);
+      }
+      print("x" * 100);
+    }
+    /* final notes2 = FirebaseFirestore.instance.collection('notes');
+    final result = await notes2.doc("cpGJsPMaeRYAijexiY5s").get();
+    final data = result.data() as Map<String, dynamic>;
+    print("?" * 100);
+    print(data['tagsId'].runtimeType);
+    print("?" * 100);*/
   }
 
   Future<void> getLoginData() async {

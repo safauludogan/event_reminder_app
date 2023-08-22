@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:event_reminder_app/core/constants/string_constants.dart';
 import 'package:event_reminder_app/core/init/toast/toast_service.dart';
 import 'package:event_reminder_app/features/splash/splash_view.dart';
@@ -21,7 +20,6 @@ abstract class SplashViewModel extends State<SplashView>
     FirebaseAuth.instance.authStateChanges().listen((User? event) async {
       if (event != null) {
         LoadingDialog(context).show();
-        await Future.delayed(Duration(seconds: 3));
         unawaited(getIt<AppRouter>().replace(const HomeRoute()));
         ToastService.success.show(text: StringConstants.loginSuccess);
         LoadingDialog(context).dissmis();

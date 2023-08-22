@@ -32,7 +32,7 @@ class AuthenticationManager {
       await user.sendEmailVerification();
       ToastService.info.show(text: StringConstants.verifyEmailAddress);
     } on FirebaseAuthException catch (e) {
-      FirebaseCustomExceptions(e.toString());
+      throw FirebaseCustomExceptions(e.toString());
     }
   }
 

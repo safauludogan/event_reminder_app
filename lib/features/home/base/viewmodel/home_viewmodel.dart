@@ -1,9 +1,10 @@
+import 'package:event_reminder_app/core/base/viewmodel/base_viewmodel.dart';
+import 'package:event_reminder_app/features/home/events_page/events_view.dart';
+import 'package:event_reminder_app/features/home/page2/page2_view.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
-import 'package:event_reminder_app/core/base/viewmodel/base_viewmodel.dart';
-import 'package:event_reminder_app/features/home/page1/page1_view.dart';
-import 'package:event_reminder_app/features/home/page2/page2_view.dart';
 import 'package:mobx/mobx.dart';
+
 part 'home_viewmodel.g.dart';
 
 class HomeViewModel = _HomeViewModelBase with _$HomeViewModel;
@@ -21,7 +22,7 @@ abstract class _HomeViewModelBase with Store, BaseViewModel {
   int pageIndex = 0;
 
   List<Widget> screens = [
-    const Page1View(),
+    const EventsView(),
     const Page2View(),
     const Page2View(),
     const Page2View(),
