@@ -6,7 +6,7 @@ part of 'notes.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-Notes _$NotesFromJson(Map<String, dynamic> json) => Notes(
+Note _$NoteFromJson(Map<String, dynamic> json) => Note(
       id: json['id'] as String?,
       title: json['title'] as String?,
       note: json['note'] as String?,
@@ -21,7 +21,7 @@ Notes _$NotesFromJson(Map<String, dynamic> json) => Notes(
           (json['tagsId'] as List<dynamic>?)?.map((e) => e as String).toList(),
     );
 
-Map<String, dynamic> _$NotesToJson(Notes instance) => <String, dynamic>{
+Map<String, dynamic> _$NoteToJson(Note instance) => <String, dynamic>{
       'id': instance.id,
       'title': instance.title,
       'note': instance.note,

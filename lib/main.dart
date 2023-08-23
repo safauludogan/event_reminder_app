@@ -12,22 +12,15 @@ import 'package:event_reminder_app/product/navigator/app_router.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get_it/get_it.dart';
-import 'package:provider/provider.dart';
 
 part 'core/init/main/main_init.dart';
 
 Future<void> main() async {
   await initInitializes();
   runApp(
-    MultiProvider(
-      providers: [
-        ChangeNotifierProvider<ThemeManager>(
-          create: (_) => ThemeManager(),
-        )
-      ],
-      child: MyApp(),
-    ),
+    ProviderScope(child: MyApp()),
   );
 }
 
@@ -42,7 +35,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp.router(
       routerConfig: router.config(),
       scrollBehavior: MyCustomScrollBehavior(),
-      theme: context.watch<ThemeManager>().getThemeData(context),
+      theme: ThemeManager().getThemeData(context),
       debugShowCheckedModeBanner: false,
       builder: (context, child) {
         NetworkManager.instance.init(context);

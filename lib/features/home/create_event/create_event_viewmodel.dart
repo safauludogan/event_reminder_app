@@ -1,7 +1,8 @@
 import 'package:event_reminder_app/features/home/create_event/create_event_view.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-abstract class CreateEventViewModel extends State<CreateEventView> {
+abstract class CreateEventViewModel extends ConsumerState<CreateEventView> {
   @override
   void dispose() {
     super.dispose();

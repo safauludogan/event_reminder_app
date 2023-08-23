@@ -1,30 +1,42 @@
 import 'package:event_reminder_app/core/components/widgets/container_date_stadium.dart';
-import 'package:event_reminder_app/core/components/widgets/custom_elevatedbutton.dart';
 import 'package:event_reminder_app/core/components/widgets/custom_switch.dart';
 import 'package:event_reminder_app/core/components/widgets/custom_textformfield.dart';
 import 'package:event_reminder_app/core/components/widgets/title_widget.dart';
 import 'package:event_reminder_app/core/constants/project_variables.dart';
 import 'package:event_reminder_app/core/constants/string_constants.dart';
 import 'package:event_reminder_app/core/extension/context_extension.dart';
+import 'package:event_reminder_app/core/extension/string_extension.dart';
 import 'package:event_reminder_app/core/init/toast/toast_service.dart';
+import 'package:event_reminder_app/features/home/create_event/create_event_provider.dart';
 import 'package:event_reminder_app/features/home/create_event/create_event_viewmodel.dart';
 import 'package:event_reminder_app/product/utility/date_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 
 part 'components/event_date_selection_base.dart';
 
 @immutable
-final class CreateEventView extends StatefulWidget {
+final class CreateEventView extends ConsumerStatefulWidget {
   const CreateEventView({super.key});
 
   @override
-  State<CreateEventView> createState() => _CreateEventViewState();
+  ConsumerState<ConsumerStatefulWidget> createState() =>
+      _CreateEventViewState();
 }
 
 class _CreateEventViewState extends CreateEventViewModel {
+  late CreateNoteState createNoteProviderListener;
+  late CreateNoteProvider createNoteProviderNoListener;
+  final createNoteProvider =
+      StateNotifierProvider<CreateNoteProvider, CreateNoteState>(
+    (ref) => CreateNoteProvider(),
+  );
+
   @override
   Widget build(BuildContext context) {
+    createNoteProviderListener = ref.watch(createNoteProvider);
+    createNoteProviderNoListener = ref.read(createNoteProvider.notifier);
     return _baseBody(context);
   }
 
@@ -136,16 +148,23 @@ class _CreateEventViewState extends CreateEventViewModel {
   Widget eventDateSelection() {
     return Column(
       children: [
-        switchText(StringConstants.allDayEvent),
+        switchText(
+          StringConstants.allDayEvent,
+          createNoteProviderNoListener.changeAllDayEventSelect,
+          value: createNoteProviderListener.isAllDayEventSelect,
+        ),
         EventSelectionBase(
-          onDateSelect: (p0) {
-            print('Date $p0');
+          onDateSelect: (date) {
+            ref.read(createNoteProvider.notifier).setStartDate(date);
           },
-          onTimeSelect: (p0) {
-            print('Time $p0');
+          onTimeSelect: (time) {
+            ref.read(createNoteProvider.notifier).setStartTime(time);
           },
           subTitle: StringConstants.start,
-          date: 'Dec 20',
+          date: createNoteProviderListener.startDate
+              .toString()
+              .dateFormat
+              .toString(),
           time: '10.00',
         ),
         Gap(context.dynamicHeight(0.01)),
@@ -161,7 +180,11 @@ class _CreateEventViewState extends CreateEventViewModel {
           time: '11.00',
         ),
         Gap(context.dynamicHeight(0.004)),
-        switchText(StringConstants.repetitiveEvent),
+        switchText(
+          StringConstants.repetitiveEvent,
+          createNoteProviderNoListener.changeRepetitiveEventSelect,
+          value: createNoteProviderListener.isRepetitiveEventSelect,
+        ),
       ],
     );
   }
@@ -181,12 +204,19 @@ class _CreateEventViewState extends CreateEventViewModel {
     );
   }
 
-  Widget switchText(String title) {
+  Widget switchText(
+    String title,
+    void Function(bool) onChange, {
+    required bool value,
+  }) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         headerText(title),
-        const CustomSwitch(value: false),
+        CustomSwitch(
+          value: value,
+          onChanged: onChange,
+        ),
       ],
     );
   }

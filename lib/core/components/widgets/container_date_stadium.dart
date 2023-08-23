@@ -12,27 +12,28 @@ class StadiumContainerDate extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: Container(
-        width: 78,
-        height: 22,
         decoration: ShapeDecoration(
           color: Colors.grey.shade300,
           shape: const StadiumBorder(),
         ),
-        child: Center(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Gap(context.dynamicWidth(0.003)),
-              Text(
-                text,
-                style: context.textTheme.labelSmall?.copyWith(
-                    fontWeight: FontWeight.w500, color: Colors.black54),
-              ),
-              const Icon(
-                Icons.keyboard_arrow_down_rounded,
-                size: 18,
-              )
-            ],
+        child: Padding(
+          padding: EdgeInsets.only(left: 4, right: 4, top: 2, bottom: 2),
+          child: Center(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Gap(context.dynamicWidth(0.003)),
+                Text(
+                  text,
+                  style: context.textTheme.labelSmall?.copyWith(
+                      fontWeight: FontWeight.w500, color: Colors.black54),
+                ),
+                const Icon(
+                  Icons.keyboard_arrow_down_rounded,
+                  size: 18,
+                )
+              ],
+            ),
           ),
         ),
       ),

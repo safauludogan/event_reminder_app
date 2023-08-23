@@ -7,7 +7,6 @@ import 'package:event_reminder_app/product/manager/theme/theme_manager.dart';
 import 'package:event_reminder_app/product/model/notes.dart';
 import 'package:event_reminder_app/product/utility/enum/firebase_collections.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class EventsView extends StatefulWidget {
   const EventsView({super.key});
@@ -26,9 +25,9 @@ class _EventsViewState extends State<EventsView> {
 
   Future<void> getDataFromFirebase() async {
     final response =
-        await FirebaseCollections.notes.reference.withConverter<Notes>(
+        await FirebaseCollections.notes.reference.withConverter<Note>(
       fromFirestore: (snapshot, options) {
-        return Notes().fromFirebase(snapshot);
+        return Note().fromFirebase(snapshot);
       },
       toFirestore: (value, options) {
         return value.toJson();
@@ -65,12 +64,6 @@ class _EventsViewState extends State<EventsView> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            ElevatedButton(
-              onPressed: () => context.read<ThemeManager>().changeTheme(),
-              child: const Text(
-                'Change Theme',
-              ),
-            ),
             TextButton(
               onPressed: () async => AuthenticationManager().logOut(),
               child: const Text(StringConstants.logout),

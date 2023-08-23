@@ -4,8 +4,8 @@ import 'package:json_annotation/json_annotation.dart';
 part 'notes.g.dart';
 
 @JsonSerializable()
-class Notes extends BaseFirebaseModel<Notes> implements IdModel {
-  Notes({
+class Note extends BaseFirebaseModel<Note> implements IdModel {
+  Note({
     this.id,
     this.title,
     this.note,
@@ -24,7 +24,7 @@ class Notes extends BaseFirebaseModel<Notes> implements IdModel {
   @override
   final String? id;
 
-  Notes copyWith({
+  Note copyWith({
     String? id,
     String? title,
     String? note,
@@ -33,7 +33,7 @@ class Notes extends BaseFirebaseModel<Notes> implements IdModel {
     DateTime? reminderDate,
     List<String>? tagsId,
   }) {
-    return Notes(
+    return Note(
       id: id ?? this.id,
       title: title ?? this.title,
       note: note ?? this.note,
@@ -45,17 +45,17 @@ class Notes extends BaseFirebaseModel<Notes> implements IdModel {
   }
 
   Map<String, dynamic> toJson() {
-    return _$NotesToJson(this);
+    return _$NoteToJson(this);
   }
 
   @override
-  factory Notes.fromJson(Map<String, dynamic> json) {
-    return _$NotesFromJson(json);
+  factory Note.fromJson(Map<String, dynamic> json) {
+    return _$NoteFromJson(json);
   }
 
   @override
-  Notes fromJson(Map<String, dynamic> json) {
-    return Notes.fromJson(json);
+  Note fromJson(Map<String, dynamic> json) {
+    return Note.fromJson(json);
   }
 
   @override

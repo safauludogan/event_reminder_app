@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 
 enum ThemeType { light, dark }
 
-class ThemeManager extends ChangeNotifier {
+class ThemeManager {
   ThemeType _currentThemeType = ThemeType.light;
 
   ThemeData? getThemeData(BuildContext context) {
@@ -29,6 +29,5 @@ class ThemeManager extends ChangeNotifier {
       PreferencesKeys.theme,
       value: _currentThemeType.toString(),
     );
-    notifyListeners();
   }
 }
