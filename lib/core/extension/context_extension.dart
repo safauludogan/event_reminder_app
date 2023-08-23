@@ -49,7 +49,7 @@ extension BuildContextExtension on BuildContext {
   EdgeInsets get paddingLeftHigh => EdgeInsets.only(left: width * .1);
 
   //PaddingSymectric
-  EdgeInsets get paddingScaffold => const EdgeInsets.symmetric(horizontal: 4);
+  EdgeInsets get paddingScaffold => const EdgeInsets.symmetric(horizontal: 12);
   EdgeInsets get paddingMediumScaffold =>
       EdgeInsets.symmetric(horizontal: normalValue);
 

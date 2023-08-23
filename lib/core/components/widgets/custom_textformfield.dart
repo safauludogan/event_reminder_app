@@ -1,138 +1,41 @@
-import 'package:event_reminder_app/core/constants/colors.dart';
+import 'package:event_reminder_app/core/components/base/base_custom_textfield.dart';
 import 'package:event_reminder_app/core/constants/project_variables.dart';
-import 'package:event_reminder_app/core/constants/string_constants.dart';
-import 'package:event_reminder_app/core/constants/validators.dart';
-import 'package:event_reminder_app/core/extension/context_extension.dart';
 import 'package:flutter/material.dart';
-
-bool isPasswordVisible = true;
 
 class CustomTextFormField extends StatefulWidget {
   const CustomTextFormField({
-    required this.customTextFormFieldAdapter,
     required this.controller,
+    required this.hintText,
+    this.maxLines,
+    this.maxLength = ProjectVaribles.textMaxLength,
     super.key,
-    this.onChanged,
   });
-  final ICustomTextFormFieldAdapter customTextFormFieldAdapter;
   final TextEditingController controller;
-  final void Function(String value)? onChanged;
-
+  final String hintText;
+  final int? maxLength;
+  final int? maxLines;
   @override
   State<CustomTextFormField> createState() => _CustomTextFormFieldState();
 }
 
 class _CustomTextFormFieldState extends State<CustomTextFormField> {
+  int textLength = 0;
+  void onChange(String value) {
+    setState(() {
+      textLength = value.length;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    final adapter = widget.customTextFormFieldAdapter.model;
-    return TextFormField(
-      cursorColor: Colors.black,
-      onChanged: widget.onChanged != null
-          ? (value) {
-              widget.onChanged!.call(value);
-            }
-          : null,
+    return BaseTextFormField(
+      context: context,
       controller: widget.controller,
-      validator: (value) => adapter.validator?.call(value),
-      maxLength: adapter.maxLength ?? 20,
-      keyboardType: adapter.keyboardType ?? TextInputType.text,
-      obscureText:
-          widget.customTextFormFieldAdapter is PasswordTextFormFieldAdapter
-              ? isPasswordVisible
-              : false,
-      style: context.textTheme.titleSmall,
-      decoration: InputDecoration(
-        counterText: '',
-        alignLabelWithHint: true,
-        prefixIcon: adapter.prefixIcon,
-        labelText: adapter.labelText,
-        
-        prefixIconColor: MaterialStateColor.resolveWith(
-          (states) => states.contains(MaterialState.focused)
-              ? ColorConstants.primaryColor
-              : Colors.grey,
-        ),
-        suffixIcon: adapter.suffixIcon != null
-            ? IconButton(
-                onPressed: () {
-                  setState(
-                    () =>
-                        widget.customTextFormFieldAdapter.suffixIconCallback(),
-                  );
-                },
-                icon: adapter.suffixIcon!,
-              )
-            : null,
-        border: OutlineInputBorder(
-          borderRadius: context.borderRadiusHigh,
-        ),
-      ),
+      maxLines: widget.maxLines,
+      hintText: widget.hintText,
+      maxLength: widget.maxLength,
+      suffixText: '  $textLength/${widget.maxLength}',
+      onChanged: onChange,
     );
   }
-}
-
-abstract class ICustomTextFormFieldAdapter {
-  CustomTextFormFieldModel get model;
-  void suffixIconCallback();
-}
-
-class EmailTextFormFieldAdapter implements ICustomTextFormFieldAdapter {
-  @override
-  CustomTextFormFieldModel get model => CustomTextFormFieldModel.email();
-
-  @override
-  void suffixIconCallback() {
-    throw Exception('$this E-postada suffix callback yok');
-  }
-}
-
-class PasswordTextFormFieldAdapter implements ICustomTextFormFieldAdapter {
-  @override
-  CustomTextFormFieldModel get model => CustomTextFormFieldModel.password();
-
-  @override
-  void suffixIconCallback() {
-    isPasswordVisible = !isPasswordVisible;
-  }
-}
-
-class SearchTextFormFieldAdapter implements ICustomTextFormFieldAdapter {
-  @override
-  CustomTextFormFieldModel get model => CustomTextFormFieldModel.search();
-
-  @override
-  void suffixIconCallback() {
-    throw Exception('$this Search suffix callback yok');
-  }
-}
-
-class CustomTextFormFieldModel {
-  CustomTextFormFieldModel.email() {
-    labelText = StringConstants.enterEmail;
-    prefixIcon = const Icon(Icons.person);
-    keyboardType = TextInputType.emailAddress;
-    validator = validateEmail;
-    maxLength = ProjectVaribles.emailMaxLength;
-  }
-  CustomTextFormFieldModel.password() {
-    labelText = StringConstants.password;
-    prefixIcon = const Icon(Icons.password);
-    keyboardType = TextInputType.text;
-    validator = validatePassword;
-    suffixIcon = isPasswordVisible == true
-        ? const Icon(Icons.visibility_off_rounded, color: Colors.grey)
-        : Icon(Icons.visibility_rounded, color: ColorConstants.primaryColor);
-    maxLength = ProjectVaribles.emailMaxLength;
-  }
-  CustomTextFormFieldModel.search() {
-    labelText = StringConstants.search;
-    prefixIcon = const Icon(Icons.search);
-  }
-  late String labelText;
-  late Widget prefixIcon;
-  int? maxLength;
-  Widget? suffixIcon;
-  TextInputType? keyboardType;
-  String? Function(String? value)? validator;
 }

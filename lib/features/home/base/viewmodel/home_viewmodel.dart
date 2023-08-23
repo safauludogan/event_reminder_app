@@ -1,6 +1,6 @@
 import 'package:event_reminder_app/core/base/viewmodel/base_viewmodel.dart';
+import 'package:event_reminder_app/features/home/create_event/create_event_view.dart';
 import 'package:event_reminder_app/features/home/events_page/events_view.dart';
-import 'package:event_reminder_app/features/home/page2/page2_view.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
@@ -23,9 +23,8 @@ abstract class _HomeViewModelBase with Store, BaseViewModel {
 
   List<Widget> screens = [
     const EventsView(),
-    const Page2View(),
-    const Page2View(),
-    const Page2View(),
+    CreateEventView(),
+    CreateEventView(),
   ];
 
   List<BottomNavigationBarItem> items = const [
@@ -35,19 +34,14 @@ abstract class _HomeViewModelBase with Store, BaseViewModel {
       activeIcon: Icon(FluentIcons.home_12_filled),
     ),
     BottomNavigationBarItem(
-      icon: Icon(FluentIcons.person_12_regular),
-      label: 'Profile',
-      activeIcon: Icon(FluentIcons.person_12_filled),
+      icon: Icon(FluentIcons.add_circle_32_regular),
+      label: 'Create Event',
+      activeIcon: Icon(FluentIcons.add_circle_32_filled),
     ),
     BottomNavigationBarItem(
       icon: Icon(FluentIcons.calendar_12_regular),
       label: 'Takvim',
       activeIcon: Icon(FluentIcons.calendar_12_filled),
-    ),
-    BottomNavigationBarItem(
-      icon: Icon(FluentIcons.calendar_work_week_16_regular),
-      label: 'İş Takip',
-      activeIcon: Icon(FluentIcons.calendar_work_week_16_filled),
     ),
   ];
 

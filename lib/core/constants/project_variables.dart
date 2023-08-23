@@ -8,4 +8,8 @@ class ProjectVaribles {
   static const int emailMaxLength = 40;
   static const int passwordMaxLength = 20;
   static const double toastIconHW = 20;
+  static const int textMaxLength = 12;
+  static const int textLocationMaxLength = 60;
+  static const int noteMaxLength = 240;
+  static const int noteTextMaxLine = 8;
 }

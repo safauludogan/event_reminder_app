@@ -27,7 +27,18 @@ class StringConstants {
   static const String noConnectionServer = 'Server connection failed';
   static const String dontYouHaveAnAcc = "Don't you have an account?";
   static const String donYouHaveAnAcc = 'Do you have an account?';
-  static const String verifyEmailAddress = 'Please verify your mail address\nWe sent a link!';
+  static const String verifyEmailAddress =
+      'Please verify your mail address\nWe sent a link!';
+  static const String newEvent = 'New event';
+  static const String title = 'Title';
+  static const String locationOrMeetingUrl = 'Location or meeting URL';
+  static const String allDayEvent = 'All day event';
+  static const String repetitiveEvent = 'Repetitive event';
+  static const String start = 'Start';
+  static const String end = 'End';
+  static const String tags = 'Tags';
+  static const String notes = 'Notes';
+  static const String create = 'Create';
 }
 
 @immutable

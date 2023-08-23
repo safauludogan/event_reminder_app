@@ -1,6 +1,6 @@
+import 'package:event_reminder_app/core/extension/context_extension.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:event_reminder_app/core/extension/context_extension.dart';
 
 class CustomElevatedButton extends StatelessWidget {
   const CustomElevatedButton({
