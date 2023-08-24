@@ -165,19 +165,24 @@ class _CreateEventViewState extends CreateEventViewModel {
               .toString()
               .dateFormat
               .toString(),
-          time: '10.00',
+          time: createNoteProviderListener.startTime ??
+              TimeOfDay.now().format(context),
         ),
         Gap(context.dynamicHeight(0.01)),
         EventSelectionBase(
-          onDateSelect: (p0) {
-            print('Date $p0');
+          onDateSelect: (date) {
+            ref.read(createNoteProvider.notifier).setEndDate(date);
           },
-          onTimeSelect: (p0) {
-            print('Time $p0');
+          onTimeSelect: (time) {
+            ref.read(createNoteProvider.notifier).setEndTime(time);
           },
           subTitle: StringConstants.end,
-          date: 'Dec 20',
-          time: '11.00',
+          date: createNoteProviderListener.endDate
+              .toString()
+              .dateFormat
+              .toString(),
+          time: createNoteProviderListener.endTime ??
+              TimeOfDay.now().format(context),
         ),
         Gap(context.dynamicHeight(0.004)),
         switchText(

@@ -10,7 +10,7 @@ class CreateNoteProvider extends StateNotifier<CreateNoteState> {
             isAllDayEventSelect: false,
             isRepetitiveEventSelect: false,
             startDate: DateTime.now(),
-            startTime: TimeOfDay.now(),
+            endDate: DateTime.now(),
           ),
         );
 
@@ -26,8 +26,16 @@ class CreateNoteProvider extends StateNotifier<CreateNoteState> {
     state = state.copyWith(startDate: date);
   }
 
-  void setStartTime(TimeOfDay time) {
+  void setStartTime(String time) {
     state = state.copyWith(startTime: time);
+  }
+
+   void setEndDate(DateTime date) {
+    state = state.copyWith(endDate: date);
+  }
+
+  void setEndTime(String time) {
+    state = state.copyWith(endTime: time);
   }
 }
 
@@ -36,19 +44,26 @@ final class CreateNoteState extends Equatable {
   final bool isAllDayEventSelect;
   final bool isRepetitiveEventSelect;
   final DateTime startDate;
-  final TimeOfDay startTime;
+  final String? startTime;
+  final DateTime endDate;
+  final String? endTime;
+
   const CreateNoteState({
     required this.isAllDayEventSelect,
     required this.isRepetitiveEventSelect,
     required this.startDate,
-    required this.startTime,
+    required this.endDate,
+    this.startTime,
+    this.endTime,
   });
 
   CreateNoteState copyWith({
     bool? isAllDayEventSelect,
     bool? isRepetitiveEventSelect,
     DateTime? startDate,
-    TimeOfDay? startTime,
+    String? startTime,
+    DateTime? endDate,
+    String? endTime,
   }) {
     return CreateNoteState(
       isAllDayEventSelect: isAllDayEventSelect ?? this.isAllDayEventSelect,
@@ -56,10 +71,18 @@ final class CreateNoteState extends Equatable {
           isRepetitiveEventSelect ?? this.isRepetitiveEventSelect,
       startDate: startDate ?? this.startDate,
       startTime: startTime ?? this.startTime,
+      endDate: endDate ?? this.endDate,
+      endTime: endTime ?? this.endTime,
     );
   }
 
   @override
-  List<Object?> get props =>
-      [isAllDayEventSelect, isRepetitiveEventSelect, startDate, startTime];
+  List<Object?> get props => [
+        isAllDayEventSelect,
+        isRepetitiveEventSelect,
+        startDate,
+        startTime,
+        endDate,
+        endTime
+      ];
 }

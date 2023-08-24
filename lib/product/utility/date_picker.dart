@@ -11,11 +11,15 @@ class DatePicker {
     return selectedDate;
   }
 
-  Future<TimeOfDay?> pickTime({required BuildContext context}) async {
+  Future<String?> pickTime({required BuildContext context}) async {
     final selectedTime = await showTimePicker(
       context: context,
       initialTime: TimeOfDay.now(),
     );
-    return selectedTime;
+    if (selectedTime != null && context.mounted) {
+      return selectedTime.format(context);
+    }
+    if (!context.mounted) return '';
+    return TimeOfDay.now().format(context);
   }
 }

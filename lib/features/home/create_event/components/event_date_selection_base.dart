@@ -13,7 +13,7 @@ class EventSelectionBase extends StatelessWidget {
   final String date;
   final String time;
   final void Function(DateTime)? onDateSelect;
-  final void Function(TimeOfDay)? onTimeSelect;
+  final void Function(String)? onTimeSelect;
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +36,7 @@ class EventSelectionBase extends StatelessWidget {
           onTap: () async {
             final selectedTime = await DatePicker().pickTime(context: context);
             if (selectedTime == null) return;
-            onTimeSelect?.call(TimeOfDay.now());
+            onTimeSelect?.call(selectedTime);
           },
         ),
       ],
