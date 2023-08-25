@@ -13,6 +13,12 @@ class DatePicker {
 
   Future<String?> pickTime({required BuildContext context}) async {
     final selectedTime = await showTimePicker(
+      builder: (context, child) {
+        return Theme(
+          data: ThemeData(useMaterial3: true),
+          child: child!,
+        );
+      },
       context: context,
       initialTime: TimeOfDay.now(),
     );

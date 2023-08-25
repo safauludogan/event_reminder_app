@@ -17,7 +17,7 @@ class StadiumContainerDate extends StatelessWidget {
           shape: const StadiumBorder(),
         ),
         child: Padding(
-          padding: EdgeInsets.only(left: 4, right: 4, top: 2, bottom: 2),
+          padding: const EdgeInsets.only(left: 4, right: 4, top: 2, bottom: 2),
           child: Center(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,

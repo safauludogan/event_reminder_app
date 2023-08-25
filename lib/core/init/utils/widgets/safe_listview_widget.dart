@@ -1,6 +1,6 @@
 import 'package:animate_do/animate_do.dart';
-import 'package:flutter/material.dart';
 import 'package:event_reminder_app/core/extension/context_extension.dart';
+import 'package:flutter/material.dart';
 
 class SafeListView extends StatelessWidget {
   const SafeListView({

@@ -7,6 +7,7 @@ import 'package:event_reminder_app/core/constants/string_constants.dart';
 import 'package:event_reminder_app/core/extension/context_extension.dart';
 import 'package:event_reminder_app/core/extension/string_extension.dart';
 import 'package:event_reminder_app/core/init/toast/toast_service.dart';
+import 'package:event_reminder_app/core/utils/chips_shimmer.dart';
 import 'package:event_reminder_app/features/home/create_event/create_event_provider.dart';
 import 'package:event_reminder_app/features/home/create_event/create_event_viewmodel.dart';
 import 'package:event_reminder_app/product/utility/date_picker.dart';
@@ -117,29 +118,35 @@ class _CreateEventViewState extends CreateEventViewModel {
         Wrap(
           spacing: 4,
           runSpacing: -7,
-          children: [
-            for (int i = 0; i < 8; i++)
-              ChoiceChip(
-                //elevation: 5,
-                selectedColor: Colors.red,
-                backgroundColor: Colors.grey.shade300,
-                label: Text(
-                  'FITNESS',
-                  style: context.textTheme.labelMedium?.copyWith(
-                    color: itemSelect ? Colors.white : Colors.grey,
+          children: createNoteProviderListener.tagsLoading
+              ? List.generate(8, (index) => const ChipsShimmer())
+              : List.generate(
+                  createNoteProviderListener.tags?.length ?? 0,
+                  (index) => ChoiceChip(
+                    selectedColor:
+                        createNoteProviderListener.tags![index].color,
+                    backgroundColor: Colors.grey.shade300,
+                    label: Text(
+                      createNoteProviderListener.tags![index].title!,
+                      style: context.textTheme.labelMedium?.copyWith(
+                        color: createNoteProviderListener.chipValues![index]
+                            ? Colors.white
+                            : Colors.grey,
+                      ),
+                    ),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: context.borderRadiusHigh,
+                    ),
+                    //selected: chipSelectedStates[index],
+                    selected: createNoteProviderListener.chipValues![index],
+                    onSelected: (selected) {
+                      createNoteProviderNoListener.updateChipValue(
+                        index,
+                        selected,
+                      );
+                    },
                   ),
-                ),
-                shape: RoundedRectangleBorder(
-                  borderRadius: context.borderRadiusHigh,
-                ),
-                selected: itemSelect,
-                onSelected: (value) {
-                  setState(() {
-                    itemSelect = value;
-                  });
-                },
-              )
-          ],
+                ).toList(),
         )
       ],
     );

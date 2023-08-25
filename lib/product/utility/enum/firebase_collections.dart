@@ -1,7 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 enum FirebaseCollections {
-  notes;
+  notes,
+  tags;
 
   CollectionReference get reference =>
       FirebaseFirestore.instance.collection(name);
