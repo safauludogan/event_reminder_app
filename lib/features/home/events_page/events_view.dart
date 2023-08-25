@@ -35,12 +35,10 @@ class _EventsViewState extends State<EventsView> {
     ).get();
 
     if (response.docs.isNotEmpty) {
-      print("x" * 100);
       final values = response.docs.map((e) => e.data()).toList();
       for (final data in values) {
-        print(data);
+        //print(data);
       }
-      print("x" * 100);
     }
     /* final notes2 = FirebaseFirestore.instance.collection('notes');
     final result = await notes2.doc("cpGJsPMaeRYAijexiY5s").get();

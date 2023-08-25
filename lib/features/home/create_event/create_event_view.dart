@@ -10,7 +10,6 @@ import 'package:event_reminder_app/core/extension/string_extension.dart';
 import 'package:event_reminder_app/core/init/toast/toast_service.dart';
 import 'package:event_reminder_app/core/utils/chips_shimmer.dart';
 import 'package:event_reminder_app/features/home/create_event/create_event_provider.dart';
-import 'package:event_reminder_app/features/home/create_event/create_event_viewmodel.dart';
 import 'package:event_reminder_app/product/utility/date_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -27,7 +26,13 @@ final class CreateEventView extends ConsumerStatefulWidget {
       _CreateEventViewState();
 }
 
-class _CreateEventViewState extends CreateEventViewModel {
+class _CreateEventViewState extends ConsumerState<CreateEventView> {
+  @override
+  void dispose() {
+    super.dispose();
+    createNoteProviderNoListener.disp();
+  }
+
   late CreateNoteState createNoteProviderListener;
   late CreateNoteProvider createNoteProviderNoListener;
   final createNoteProvider =
@@ -49,7 +54,7 @@ class _CreateEventViewState extends CreateEventViewModel {
           padding: context.paddingScaffold,
           physics: const BouncingScrollPhysics(),
           child: Form(
-            key: globalKey,
+            key: createNoteProviderNoListener.globalKey,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -80,7 +85,7 @@ class _CreateEventViewState extends CreateEventViewModel {
     return SizedBox(
       width: double.infinity,
       child: ElevatedButton.icon(
-        onPressed: () {},
+        onPressed: () => createNoteProviderNoListener.postDataToFirebase(),
         icon: const Icon(
           Icons.create,
           size: 18,
@@ -101,7 +106,7 @@ class _CreateEventViewState extends CreateEventViewModel {
         Gap(context.dynamicHeight(0.01)),
         CustomTextFormField(
           maxLines: ProjectVaribles.noteTextMaxLine,
-          controller: noteController,
+          controller: createNoteProviderNoListener.noteController,
           hintText: '',
           maxLength: ProjectVaribles.noteMaxLength,
         )
@@ -198,7 +203,7 @@ class _CreateEventViewState extends CreateEventViewModel {
 
   Widget locationTextField() {
     return CustomTextFormField(
-      controller: locationController,
+      controller: createNoteProviderNoListener.locationController,
       hintText: StringConstants.locationOrMeetingUrl,
       maxLength: ProjectVaribles.textLocationMaxLength,
     );
@@ -206,7 +211,7 @@ class _CreateEventViewState extends CreateEventViewModel {
 
   Widget titleTextField() {
     return CustomTextFormField(
-      controller: titleController,
+      controller: createNoteProviderNoListener.titleController,
       hintText: StringConstants.title,
     );
   }

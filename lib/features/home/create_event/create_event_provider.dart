@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:equatable/equatable.dart';
+import 'package:event_reminder_app/product/model/notes.dart';
 import 'package:event_reminder_app/product/model/tag.dart';
 import 'package:event_reminder_app/product/utility/enum/firebase_collections.dart';
 import 'package:flutter/material.dart';
@@ -18,6 +19,17 @@ class CreateNoteProvider extends StateNotifier<CreateNoteState> {
           ),
         ) {
     getTags();
+  }
+
+  GlobalKey<FormState> globalKey = GlobalKey<FormState>();
+  final titleController = TextEditingController();
+  final locationController = TextEditingController();
+  final noteController = TextEditingController();
+
+  void disp() {
+    titleController.dispose();
+    locationController.dispose();
+    noteController.dispose();
   }
 
   Future<void> getTags() async {
@@ -67,23 +79,48 @@ class CreateNoteProvider extends StateNotifier<CreateNoteState> {
     state.chipValues![index] = value;
     state = state.copyWith(chipValues: state.chipValues);
   }
-}
 
-Future<List<Tag>?> getTagsFromFirebase() async {
-  final response = await FirebaseCollections.tags.reference.withConverter<Tag>(
-    fromFirestore: (snapshot, options) {
-      return Tag().fromFirebase(snapshot);
-    },
-    toFirestore: (value, options) {
-      return value.toJson();
-    },
-  ).get();
+  Future<List<Tag>?> getTagsFromFirebase() async {
+    final response =
+        await FirebaseCollections.tags.reference.withConverter<Tag>(
+      fromFirestore: (snapshot, options) {
+        return Tag().fromFirebase(snapshot);
+      },
+      toFirestore: (value, options) {
+        return value.toJson();
+      },
+    ).get();
 
-  if (response.docs.isNotEmpty) {
-    final values = response.docs.map((e) => e.data()).toList();
-    return values;
+    if (response.docs.isNotEmpty) {
+      final values = response.docs.map((e) => e.data()).toList();
+      return values;
+    }
+    return null;
   }
-  return null;
+
+  Future<void> postDataToFirebase() async {
+    if (state.chipValues == null) return;
+    // ignore: omit_local_variable_types, prefer_final_locals
+    List<String> tagIdList = <String>[];
+
+    state.chipValues?.asMap().forEach((index, e) {
+      if (e && state.tags![index].id != null) {
+        tagIdList.add(state.tags![index].id.toString());
+      }
+    });
+    final response = await FirebaseCollections.notes.reference.add(
+      Note(
+        createdDate: state.startDate,
+        imagePath: '',
+        isAllDay: state.isAllDayEventSelect,
+        note: 'deneme',
+        reminderDate: state.endDate,
+        tagsId: tagIdList,
+        title: 'başlık',
+      ).toJson(),
+    );
+    print(response);
+  }
 }
 
 @immutable

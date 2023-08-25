@@ -15,7 +15,6 @@ abstract class BaseFirebaseModel<T extends IdModel> {
     if (value == null) {
       throw FirebaseCustomExceptions('$snapshot data is null');
     }
-    //print(snapshot.id);
     value.addEntries([MapEntry('id', snapshot.id)]);
     return fromJson(value);
   }

@@ -1,7 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:json_annotation/json_annotation.dart';
-
 import 'package:event_reminder_app/product/utility/base/base_firebase_model.dart';
+import 'package:json_annotation/json_annotation.dart';
 
 part 'notes.g.dart';
 
@@ -25,6 +24,7 @@ class Note extends BaseFirebaseModel<Note> implements IdModel {
   final DateTime? createdDate;
   final DateTime? reminderDate;
   final List<String>? tagsId;
+  @JsonKey(includeToJson: false)
   @override
   final String? id;
 
