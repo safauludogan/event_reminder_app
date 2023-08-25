@@ -11,6 +11,7 @@ Note _$NoteFromJson(Map<String, dynamic> json) => Note(
       title: json['title'] as String?,
       note: json['note'] as String?,
       imagePath: json['imagePath'] as String?,
+      isAllDay: json['isAllDay'] as bool?,
       createdDate: json['createdDate'] == null
           ? null
           : DateTime.parse(json['createdDate'] as String),
@@ -26,6 +27,7 @@ Map<String, dynamic> _$NoteToJson(Note instance) => <String, dynamic>{
       'title': instance.title,
       'note': instance.note,
       'imagePath': instance.imagePath,
+      'isAllDay': instance.isAllDay,
       'createdDate': instance.createdDate?.toIso8601String(),
       'reminderDate': instance.reminderDate?.toIso8601String(),
       'tagsId': instance.tagsId,

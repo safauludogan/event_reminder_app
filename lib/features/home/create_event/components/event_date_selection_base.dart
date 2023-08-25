@@ -7,11 +7,15 @@ class EventSelectionBase extends StatelessWidget {
     required this.time,
     this.onDateSelect,
     this.onTimeSelect,
+    this.isEnable,
+    this.isStartDate,
     super.key,
   });
   final String subTitle;
   final String date;
   final String time;
+  final bool? isEnable;
+  final bool? isStartDate;
   final void Function(DateTime)? onDateSelect;
   final void Function(String)? onTimeSelect;
 
@@ -23,6 +27,7 @@ class EventSelectionBase extends StatelessWidget {
         subTitleText(subTitle),
         const Spacer(),
         StadiumContainerDate(
+          isEnable: !(isStartDate ?? false) && (isEnable ?? false),
           text: date,
           onTap: () async {
             final selectedDate = await DatePicker().pickDate(context: context);
@@ -32,6 +37,7 @@ class EventSelectionBase extends StatelessWidget {
         ),
         const Gap(5),
         StadiumContainerDate(
+          isEnable: isEnable,
           text: time,
           onTap: () async {
             final selectedTime = await DatePicker().pickTime(context: context);

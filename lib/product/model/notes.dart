@@ -1,5 +1,7 @@
-import 'package:event_reminder_app/product/utility/base/base_firebase_model.dart';
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:json_annotation/json_annotation.dart';
+
+import 'package:event_reminder_app/product/utility/base/base_firebase_model.dart';
 
 part 'notes.g.dart';
 
@@ -10,6 +12,7 @@ class Note extends BaseFirebaseModel<Note> implements IdModel {
     this.title,
     this.note,
     this.imagePath,
+    this.isAllDay,
     this.createdDate,
     this.reminderDate,
     this.tagsId,
@@ -18,6 +21,7 @@ class Note extends BaseFirebaseModel<Note> implements IdModel {
   final String? title;
   final String? note;
   final String? imagePath;
+  final bool? isAllDay;
   final DateTime? createdDate;
   final DateTime? reminderDate;
   final List<String>? tagsId;
@@ -29,6 +33,7 @@ class Note extends BaseFirebaseModel<Note> implements IdModel {
     String? title,
     String? note,
     String? imagePath,
+    bool? isAllDay,
     DateTime? createdDate,
     DateTime? reminderDate,
     List<String>? tagsId,
@@ -38,6 +43,7 @@ class Note extends BaseFirebaseModel<Note> implements IdModel {
       title: title ?? this.title,
       note: note ?? this.note,
       imagePath: imagePath ?? this.imagePath,
+      isAllDay: isAllDay ?? this.isAllDay,
       createdDate: createdDate ?? this.createdDate,
       reminderDate: reminderDate ?? this.reminderDate,
       tagsId: tagsId ?? this.tagsId,
@@ -60,6 +66,6 @@ class Note extends BaseFirebaseModel<Note> implements IdModel {
 
   @override
   String toString() {
-    return 'Notes(title: $title, note: $note, imagePath: $imagePath, createdDate: $createdDate, reminderDate: $reminderDate, tagsId: $tagsId, id: $id)';
+    return 'Note(title: $title, note: $note, imagePath: $imagePath, isAllDay: $isAllDay, createdDate: $createdDate, reminderDate: $reminderDate, tagsId: $tagsId, id: $id)';
   }
 }

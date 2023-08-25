@@ -36,6 +36,8 @@ class CreateNoteProvider extends StateNotifier<CreateNoteState> {
 
   void changeAllDayEventSelect(bool value) {
     state = state.copyWith(isAllDayEventSelect: value);
+    setStartTime('00:00');
+    setEndTime('23:59');
   }
 
   void changeRepetitiveEventSelect(bool value) {
@@ -44,6 +46,9 @@ class CreateNoteProvider extends StateNotifier<CreateNoteState> {
 
   void setStartDate(DateTime date) {
     state = state.copyWith(startDate: date);
+    if (state.isAllDayEventSelect) {
+      setEndDate(date);
+    }
   }
 
   void setStartTime(String time) {

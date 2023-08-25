@@ -1,6 +1,7 @@
 import 'package:event_reminder_app/core/components/widgets/container_date_stadium.dart';
 import 'package:event_reminder_app/core/components/widgets/custom_switch.dart';
 import 'package:event_reminder_app/core/components/widgets/custom_textformfield.dart';
+import 'package:event_reminder_app/core/components/widgets/tag_chosechips.dart';
 import 'package:event_reminder_app/core/components/widgets/title_widget.dart';
 import 'package:event_reminder_app/core/constants/project_variables.dart';
 import 'package:event_reminder_app/core/constants/string_constants.dart';
@@ -119,36 +120,27 @@ class _CreateEventViewState extends CreateEventViewModel {
           spacing: 4,
           runSpacing: -7,
           children: createNoteProviderListener.tagsLoading
-              ? List.generate(8, (index) => const ChipsShimmer())
+              ? List.generate(8, (index) => const ChipsShimmer()).toList()
               : List.generate(
                   createNoteProviderListener.tags?.length ?? 0,
-                  (index) => ChoiceChip(
-                    selectedColor:
-                        createNoteProviderListener.tags![index].color,
-                    backgroundColor: Colors.grey.shade300,
-                    label: Text(
-                      createNoteProviderListener.tags![index].title!,
-                      style: context.textTheme.labelMedium?.copyWith(
-                        color: createNoteProviderListener.chipValues![index]
-                            ? Colors.white
-                            : Colors.grey,
-                      ),
-                    ),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: context.borderRadiusHigh,
-                    ),
-                    //selected: chipSelectedStates[index],
-                    selected: createNoteProviderListener.chipValues![index],
-                    onSelected: (selected) {
-                      createNoteProviderNoListener.updateChipValue(
-                        index,
-                        selected,
-                      );
-                    },
-                  ),
+                  tagList,
                 ).toList(),
         )
       ],
+    );
+  }
+
+  TagChoseChips tagList(int index) {
+    return TagChoseChips(
+      isSelected: createNoteProviderListener.chipValues![index],
+      labelString: createNoteProviderListener.tags![index].title!,
+      selectedColor: createNoteProviderListener.tags![index].color,
+      onSelected: (selected) {
+        createNoteProviderNoListener.updateChipValue(
+          index,
+          selected,
+        );
+      },
     );
   }
 
@@ -161,6 +153,8 @@ class _CreateEventViewState extends CreateEventViewModel {
           value: createNoteProviderListener.isAllDayEventSelect,
         ),
         EventSelectionBase(
+          isStartDate: true,
+          isEnable: createNoteProviderListener.isAllDayEventSelect,
           onDateSelect: (date) {
             ref.read(createNoteProvider.notifier).setStartDate(date);
           },
@@ -177,6 +171,7 @@ class _CreateEventViewState extends CreateEventViewModel {
         ),
         Gap(context.dynamicHeight(0.01)),
         EventSelectionBase(
+          isEnable: createNoteProviderListener.isAllDayEventSelect,
           onDateSelect: (date) {
             ref.read(createNoteProvider.notifier).setEndDate(date);
           },
