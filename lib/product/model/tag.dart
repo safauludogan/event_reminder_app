@@ -34,6 +34,7 @@ class Tag extends BaseFirebaseModel<Tag> implements IdModel {
     );
   }
 
+  @override
   Map<String, dynamic> toJson() {
     return {
       'title': title,

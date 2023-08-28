@@ -5,6 +5,7 @@ import 'package:event_reminder_app/core/components/widgets/tag_chosechips.dart';
 import 'package:event_reminder_app/core/components/widgets/title_widget.dart';
 import 'package:event_reminder_app/core/constants/project_variables.dart';
 import 'package:event_reminder_app/core/constants/string_constants.dart';
+import 'package:event_reminder_app/core/constants/validators.dart';
 import 'package:event_reminder_app/core/extension/context_extension.dart';
 import 'package:event_reminder_app/core/extension/string_extension.dart';
 import 'package:event_reminder_app/core/init/toast/toast_service.dart';
@@ -37,7 +38,7 @@ class _CreateEventViewState extends ConsumerState<CreateEventView> {
   late CreateNoteProvider createNoteProviderNoListener;
   final createNoteProvider =
       StateNotifierProvider<CreateNoteProvider, CreateNoteState>(
-    (ref) => CreateNoteProvider(),
+    (ref) => CreateNoteProvider(context),
   );
 
   @override
@@ -109,6 +110,7 @@ class _CreateEventViewState extends ConsumerState<CreateEventView> {
           controller: createNoteProviderNoListener.noteController,
           hintText: '',
           maxLength: ProjectVaribles.noteMaxLength,
+          validator: validateNote,
         )
       ],
     );
@@ -206,6 +208,7 @@ class _CreateEventViewState extends ConsumerState<CreateEventView> {
       controller: createNoteProviderNoListener.locationController,
       hintText: StringConstants.locationOrMeetingUrl,
       maxLength: ProjectVaribles.textLocationMaxLength,
+      validator: validateLocation,
     );
   }
 
@@ -213,6 +216,7 @@ class _CreateEventViewState extends ConsumerState<CreateEventView> {
     return CustomTextFormField(
       controller: createNoteProviderNoListener.titleController,
       hintText: StringConstants.title,
+      validator: validateTitle,
     );
   }
 

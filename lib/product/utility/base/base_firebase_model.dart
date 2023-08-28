@@ -9,7 +9,7 @@ abstract class IdModel {
 
 abstract class BaseFirebaseModel<T extends IdModel> {
   T fromJson(Map<String, dynamic> json);
-
+  Map<String, dynamic> toJson();
   T fromFirebase(DocSnapShot snapshot) {
     final value = snapshot.data();
     if (value == null) {

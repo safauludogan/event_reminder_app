@@ -13,7 +13,8 @@ class Note extends BaseFirebaseModel<Note> implements IdModel {
     this.imagePath,
     this.isAllDay,
     this.createdDate,
-    this.reminderDate,
+    this.startDate,
+    this.endDate,
     this.tagsId,
   });
 
@@ -22,7 +23,8 @@ class Note extends BaseFirebaseModel<Note> implements IdModel {
   final String? imagePath;
   final bool? isAllDay;
   final DateTime? createdDate;
-  final DateTime? reminderDate;
+  final DateTime? startDate;
+  final DateTime? endDate;
   final List<String>? tagsId;
   @JsonKey(includeToJson: false)
   @override
@@ -35,7 +37,8 @@ class Note extends BaseFirebaseModel<Note> implements IdModel {
     String? imagePath,
     bool? isAllDay,
     DateTime? createdDate,
-    DateTime? reminderDate,
+    DateTime? startDate,
+    DateTime? endDate,
     List<String>? tagsId,
   }) {
     return Note(
@@ -45,7 +48,8 @@ class Note extends BaseFirebaseModel<Note> implements IdModel {
       imagePath: imagePath ?? this.imagePath,
       isAllDay: isAllDay ?? this.isAllDay,
       createdDate: createdDate ?? this.createdDate,
-      reminderDate: reminderDate ?? this.reminderDate,
+      startDate: startDate ?? this.startDate,
+      endDate: endDate ?? this.endDate,
       tagsId: tagsId ?? this.tagsId,
     );
   }
@@ -66,6 +70,6 @@ class Note extends BaseFirebaseModel<Note> implements IdModel {
 
   @override
   String toString() {
-    return 'Note(title: $title, note: $note, imagePath: $imagePath, isAllDay: $isAllDay, createdDate: $createdDate, reminderDate: $reminderDate, tagsId: $tagsId, id: $id)';
+    return 'Note(title: $title, note: $note, imagePath: $imagePath, isAllDay: $isAllDay, createdDate: $createdDate, startDate: $startDate, endDate: $endDate, tagsId: $tagsId, id: $id)';
   }
 }

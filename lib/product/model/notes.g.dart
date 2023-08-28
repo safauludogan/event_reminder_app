@@ -15,9 +15,12 @@ Note _$NoteFromJson(Map<String, dynamic> json) => Note(
       createdDate: json['createdDate'] == null
           ? null
           : DateTime.parse(json['createdDate'] as String),
-      reminderDate: json['reminderDate'] == null
+      startDate: json['startDate'] == null
           ? null
-          : DateTime.parse(json['reminderDate'] as String),
+          : DateTime.parse(json['startDate'] as String),
+      endDate: json['endDate'] == null
+          ? null
+          : DateTime.parse(json['endDate'] as String),
       tagsId:
           (json['tagsId'] as List<dynamic>?)?.map((e) => e as String).toList(),
     );
@@ -29,6 +32,7 @@ Map<String, dynamic> _$NoteToJson(Note instance) => <String, dynamic>{
       'imagePath': instance.imagePath,
       'isAllDay': instance.isAllDay,
       'createdDate': instance.createdDate?.toIso8601String(),
-      'reminderDate': instance.reminderDate?.toIso8601String(),
+      'startDate': instance.startDate?.toIso8601String(),
+      'endDate': instance.endDate?.toIso8601String(),
       'tagsId': instance.tagsId,
     };

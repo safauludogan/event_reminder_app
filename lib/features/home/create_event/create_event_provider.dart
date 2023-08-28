@@ -1,19 +1,27 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:equatable/equatable.dart';
+import 'package:event_reminder_app/core/constants/string_constants.dart';
+import 'package:event_reminder_app/core/extension/string_extension.dart';
+import 'package:event_reminder_app/core/init/toast/toast_service.dart';
+import 'package:event_reminder_app/product/components/loading/loading_dialog.dart';
 import 'package:event_reminder_app/product/model/notes.dart';
 import 'package:event_reminder_app/product/model/tag.dart';
 import 'package:event_reminder_app/product/utility/enum/firebase_collections.dart';
+import 'package:event_reminder_app/product/utility/firebase_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class CreateNoteProvider extends StateNotifier<CreateNoteState> {
-  CreateNoteProvider()
+class CreateNoteProvider extends StateNotifier<CreateNoteState>
+    with FirebaseManager {
+  CreateNoteProvider(BuildContext context)
       : super(
           CreateNoteState(
             isAllDayEventSelect: false,
             isRepetitiveEventSelect: false,
             startDate: DateTime.now(),
             endDate: DateTime.now(),
+            startTime: TimeOfDay.now().format(context),
+            endTime: TimeOfDay.now().format(context),
             tags: null,
             tagsLoading: true,
           ),
@@ -81,16 +89,7 @@ class CreateNoteProvider extends StateNotifier<CreateNoteState> {
   }
 
   Future<List<Tag>?> getTagsFromFirebase() async {
-    final response =
-        await FirebaseCollections.tags.reference.withConverter<Tag>(
-      fromFirestore: (snapshot, options) {
-        return Tag().fromFirebase(snapshot);
-      },
-      toFirestore: (value, options) {
-        return value.toJson();
-      },
-    ).get();
-
+    final response = await read(FirebaseCollections.tags.reference, Tag());
     if (response.docs.isNotEmpty) {
       final values = response.docs.map((e) => e.data()).toList();
       return values;
@@ -99,7 +98,34 @@ class CreateNoteProvider extends StateNotifier<CreateNoteState> {
   }
 
   Future<void> postDataToFirebase() async {
-    if (state.chipValues == null) return;
+    if (!globalKey.currentState!.validate()) return;
+    try {
+      LoadingDialog(context).show();
+      final tagIdList = addChipsListToModel();
+
+      startAndEndTimeParser();
+      await write(
+        FirebaseCollections.notes.reference,
+        Note(
+          createdDate: DateTime.now(),
+          imagePath: '',
+          isAllDay: state.isAllDayEventSelect,
+          note: noteController.text,
+          startDate: state.startDate,
+          endDate: state.endDate,
+          tagsId: tagIdList,
+          title: titleController.text,
+        ),
+      );
+      ToastService.success.show(text: StringConstants.noteCreated);
+    } finally {
+      clearAllPage();
+      LoadingDialog(context).dissmis();
+    }
+  }
+
+  List<String> addChipsListToModel() {
+    if (state.chipValues == null) return [];
     // ignore: omit_local_variable_types, prefer_final_locals
     List<String> tagIdList = <String>[];
 
@@ -108,18 +134,37 @@ class CreateNoteProvider extends StateNotifier<CreateNoteState> {
         tagIdList.add(state.tags![index].id.toString());
       }
     });
-    final response = await FirebaseCollections.notes.reference.add(
-      Note(
-        createdDate: state.startDate,
-        imagePath: '',
-        isAllDay: state.isAllDayEventSelect,
-        note: 'deneme',
-        reminderDate: state.endDate,
-        tagsId: tagIdList,
-        title: 'başlık',
-      ).toJson(),
+    return tagIdList;
+  }
+
+  void startAndEndTimeParser() {
+    state = state.copyWith(
+      startDate: DateTime(
+        state.startDate.year,
+        state.startDate.month,
+        state.startDate.day,
+        state.startTime!.dateTimeFormat!.hour,
+        state.startTime!.dateTimeFormat!.minute,
+      ),
     );
-    print(response);
+
+    ///
+    state = state.copyWith(
+      endDate: DateTime(
+        state.endDate.year,
+        state.endDate.month,
+        state.endDate.day,
+        state.endTime!.dateTimeFormat!.hour,
+        state.endTime!.dateTimeFormat!.minute,
+      ),
+    );
+  }
+
+  void clearAllPage() {
+    noteController.clear();
+    titleController.clear();
+    locationController.clear();
+    state = state.clear();
   }
 }
 
@@ -170,6 +215,19 @@ final class CreateNoteState extends Equatable {
       tags: tags ?? this.tags,
       tagsLoading: tagsLoading ?? this.tagsLoading,
       chipValues: chipValues ?? this.chipValues,
+    );
+  }
+
+  CreateNoteState clear() {
+    return CreateNoteState(
+      isAllDayEventSelect: false,
+      isRepetitiveEventSelect: false,
+      startDate: DateTime.now(),
+      endDate: DateTime.now(),
+      startTime: TimeOfDay.now().format(context),
+      endTime: TimeOfDay.now().format(context),
+      tags: null,
+      tagsLoading: false,
     );
   }
 

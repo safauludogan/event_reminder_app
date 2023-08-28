@@ -39,6 +39,10 @@ class StringConstants {
   static const String tags = 'Tags';
   static const String notes = 'Notes';
   static const String create = 'Create';
+  static const String noteCreated = 'Note creata success';
+  static const String titleCannotEmpty = 'Title cannot empty';
+  static const String locationCannotEmpty = 'Location cannot empty';
+  static const String noteCannotEmpty = 'Note cannot empty';
 }
 
 @immutable

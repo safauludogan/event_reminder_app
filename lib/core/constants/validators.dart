@@ -19,3 +19,27 @@ String? validatePassword(String? value) {
 
   return null;
 }
+
+String? validateTitle(String? value) {
+  if (value == null || value.isEmpty) {
+    return StringConstants.titleCannotEmpty;
+  }
+
+  return null;
+}
+
+String? validateLocation(String? value) {
+  if (value == null || value.isEmpty) {
+    return StringConstants.locationCannotEmpty;
+  }
+
+  return null;
+}
+
+String? validateNote(String? value) {
+  if (value == null || value.isEmpty) {
+    return StringConstants.noteCannotEmpty;
+  }
+
+  return null;
+}
