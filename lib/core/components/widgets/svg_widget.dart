@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 enum SvgPath {
-  checked('svg_checked'),
-  denied('svg_denied'),
-  info('svg_info'),
-  warning('svg_warning');
+  checked('checked'),
+  denied('denied'),
+  info('info'),
+  noData('noData'),
+  warning('warning');
 
   const SvgPath(this.value);
   final String value;
@@ -21,5 +22,5 @@ extension SvgPathExtension on SvgPath {
     );
   }
 
-  String withPath(String path) => 'assets/svg/$path.svg';
+  String withPath(String path) => 'assets/svg/svg_$path.svg';
 }

@@ -21,7 +21,7 @@ class SafeListView extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SizedBox(height: context.dynamicHeight(0.2), child: noDataWidget),
+            Expanded(child: noDataWidget),
             if (description != null)
               const SizedBox(height: 40)
             else

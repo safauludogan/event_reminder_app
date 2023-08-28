@@ -35,6 +35,7 @@ final class BaseTextFormField extends TextFormField {
     super.enableInteractiveSelection = true,
     super.autofillHints,
     super.autovalidateMode,
+    super.textInputAction = TextInputAction.next,
   }) : super(
           decoration: customDecoration(context, hintText, suffixText),
         );

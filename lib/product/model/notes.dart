@@ -54,6 +54,7 @@ class Note extends BaseFirebaseModel<Note> implements IdModel {
     );
   }
 
+  @override
   Map<String, dynamic> toJson() {
     return _$NoteToJson(this);
   }

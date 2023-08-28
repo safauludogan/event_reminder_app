@@ -12,4 +12,5 @@ class ProjectVaribles {
   static const int textLocationMaxLength = 60;
   static const int noteMaxLength = 240;
   static const int noteTextMaxLine = 8;
+  static const double circleAvatarHigh = 32;
 }

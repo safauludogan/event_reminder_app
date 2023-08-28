@@ -9,6 +9,7 @@ class CustomTextFormField extends StatefulWidget {
     this.maxLines,
     this.maxLength = ProjectVaribles.textMaxLength,
     this.validator,
+    this.textInputAction,
     super.key,
   });
   final TextEditingController controller;
@@ -16,6 +17,7 @@ class CustomTextFormField extends StatefulWidget {
   final int? maxLength;
   final int? maxLines;
   final String? Function(String?)? validator;
+  final TextInputAction? textInputAction;
   @override
   State<CustomTextFormField> createState() => _CustomTextFormFieldState();
 }
@@ -39,6 +41,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
       suffixText: '  $textLength/${widget.maxLength}',
       onChanged: onChange,
       validator: widget.validator,
+      textInputAction: widget.textInputAction,
     );
   }
 }

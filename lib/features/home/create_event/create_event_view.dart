@@ -11,6 +11,7 @@ import 'package:event_reminder_app/core/extension/string_extension.dart';
 import 'package:event_reminder_app/core/init/toast/toast_service.dart';
 import 'package:event_reminder_app/core/utils/chips_shimmer.dart';
 import 'package:event_reminder_app/features/home/create_event/create_event_provider.dart';
+import 'package:event_reminder_app/features/home/create_event/create_event_state.dart';
 import 'package:event_reminder_app/product/utility/date_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -38,7 +39,7 @@ class _CreateEventViewState extends ConsumerState<CreateEventView> {
   late CreateNoteProvider createNoteProviderNoListener;
   final createNoteProvider =
       StateNotifierProvider<CreateNoteProvider, CreateNoteState>(
-    (ref) => CreateNoteProvider(context),
+    (ref) => CreateNoteProvider(),
   );
 
   @override
@@ -111,6 +112,7 @@ class _CreateEventViewState extends ConsumerState<CreateEventView> {
           hintText: '',
           maxLength: ProjectVaribles.noteMaxLength,
           validator: validateNote,
+          textInputAction: TextInputAction.done,
         )
       ],
     );

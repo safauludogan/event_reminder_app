@@ -1,15 +1,15 @@
 import 'package:bot_toast/bot_toast.dart';
-import 'package:flutter/material.dart';
 import 'package:event_reminder_app/core/components/widgets/svg_widget.dart';
 import 'package:event_reminder_app/core/constants/border_radius.dart';
 import 'package:event_reminder_app/core/constants/colors.dart';
 import 'package:event_reminder_app/core/constants/duration_constant.dart';
 import 'package:event_reminder_app/core/constants/padding_items.dart';
-import 'package:event_reminder_app/core/constants/string_constants.dart';
 import 'package:event_reminder_app/core/constants/project_variables.dart';
+import 'package:event_reminder_app/core/constants/string_constants.dart';
 import 'package:event_reminder_app/core/extension/context_extension.dart';
 import 'package:event_reminder_app/main.dart';
 import 'package:event_reminder_app/product/navigator/app_router.dart';
+import 'package:flutter/material.dart';
 
 enum ToastService {
   success,

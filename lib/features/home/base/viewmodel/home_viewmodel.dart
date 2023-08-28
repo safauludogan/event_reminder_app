@@ -1,6 +1,6 @@
 import 'package:event_reminder_app/core/base/viewmodel/base_viewmodel.dart';
 import 'package:event_reminder_app/features/home/create_event/create_event_view.dart';
-import 'package:event_reminder_app/features/home/events_page/events_view.dart';
+import 'package:event_reminder_app/features/home/events_page/event_view.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
@@ -22,9 +22,9 @@ abstract class _HomeViewModelBase with Store, BaseViewModel {
   int pageIndex = 0;
 
   List<Widget> screens = [
-    const EventsView(),
-    CreateEventView(),
-    CreateEventView(),
+    const EventView(),
+    const CreateEventView(),
+    const CreateEventView(),
   ];
 
   List<BottomNavigationBarItem> items = const [

@@ -9,13 +9,13 @@ class LoadingDialog {
   final BuildContext context;
 
   void show() {
-    unawaited(
-      showDialog<bool>(
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      unawaited(showDialog<bool>(
         barrierDismissible: false,
         context: context,
         builder: showLoaderDialog,
-      ),
-    );
+      ));
+    });
   }
 
   void dissmis() {
