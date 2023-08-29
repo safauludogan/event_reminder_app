@@ -3,11 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 
 class CustomSfCalendar extends StatelessWidget {
-  const CustomSfCalendar(
-      {required this.calendarController,
-      required this.dataSource,
-      this.onViewChanged,
-      super.key});
+  const CustomSfCalendar({
+    required this.calendarController,
+    required this.dataSource,
+    this.onViewChanged,
+    super.key,
+  });
   final CalendarController? calendarController;
   final CalendarDataSource? dataSource;
   final void Function(ViewChangedDetails)? onViewChanged;

@@ -63,31 +63,36 @@ class _EventViewState extends ConsumerState<EventView> {
                 final item = eventProviderListener.notes![index];
                 return Padding(
                   padding: const EdgeInsets.symmetric(vertical: 12),
-                  child: Column(
-                    children: [
-                      Row(
-                        children: [
-                          CircleDateAvatar(
-                            item: item,
-                          ),
-                          Gap(context.dynamicHeight(0.015)),
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                timeText(item),
-                                titleText(item),
-                                chips(item)
-                              ],
+                  child: InkWell(
+                    onLongPress: () {
+                      eventProviderNoListener.deleteNoteFromFirebase(item.id);
+                    },
+                    child: Column(
+                      children: [
+                        Row(
+                          children: [
+                            CircleDateAvatar(
+                              item: item,
                             ),
-                          )
-                        ],
-                      ),
-                      const Divider(
-                        color: Colors.black,
-                        thickness: 0.5,
-                      )
-                    ],
+                            Gap(context.dynamicHeight(0.015)),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  timeText(item),
+                                  titleText(item),
+                                  chips(item)
+                                ],
+                              ),
+                            )
+                          ],
+                        ),
+                        const Divider(
+                          color: Colors.black,
+                          thickness: 0.5,
+                        )
+                      ],
+                    ),
                   ),
                 );
               },

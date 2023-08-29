@@ -45,6 +45,11 @@ class StringConstants {
   static const String locationCannotEmpty = 'Location cannot empty';
   static const String noteCannotEmpty = 'Note cannot empty';
   static const String dontHaveANote= 'You dont have a note';
+  static const String delete = 'Delete';
+  static const String cancel = 'Cancel';
+  static const String deleteNote = 'Delete note';
+  static const String deleteNoteSure = 'Are you sure for delete this note?';
+  static const String noteDeleted = 'Note deleted';
 }
 
 @immutable

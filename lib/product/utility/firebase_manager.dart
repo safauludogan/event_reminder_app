@@ -24,4 +24,9 @@ mixin FirebaseManager {
     await reference.add(model.toJson());
     return true;
   }
+
+  Future<bool> remove(CollectionReference reference, String docId) async {
+    await reference.doc(docId).delete();
+    return true;
+  }
 }

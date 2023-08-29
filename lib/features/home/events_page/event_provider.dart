@@ -1,4 +1,6 @@
+import 'package:event_reminder_app/core/constants/string_constants.dart';
 import 'package:event_reminder_app/core/init/toast/toast_service.dart';
+import 'package:event_reminder_app/core/utils/custom_alert_dialog.dart';
 import 'package:event_reminder_app/features/home/events_page/event_state.dart';
 import 'package:event_reminder_app/product/components/loading/loading_dialog.dart';
 import 'package:event_reminder_app/product/model/notes.dart';
@@ -21,6 +23,19 @@ final class EventProvider extends StateNotifier<EventState>
   }
   List<Note> notes = [];
 
+  Future<void> deleteNoteFromFirebase(String? id) async {
+    if (id == null) return;
+    CustomAlertDialog(
+      (p0) async {
+        final result = await remove(FirebaseCollections.notes.reference, id);
+        if (result) {
+          ToastService.success.show(text: StringConstants.noteDeleted);
+          await getDataFromFirebase();
+        }
+      },
+    ).showAlertDialog(context);
+  }
+
   Future<void> getDataFromFirebase() async {
     try {
       LoadingDialog(context).show();
@@ -30,7 +45,11 @@ final class EventProvider extends StateNotifier<EventState>
 
       if (response.docs.isNotEmpty) {
         response.docs.map((e) {
-          if (e.data().startDate!.compareTo(DateTime.now()) == -1) {
+          final today = DateTime.now();
+          final noteDate = e.data().startDate;
+          if ((today.year == noteDate?.year) &&
+              (today.month == noteDate?.month) &&
+              (today.day == noteDate?.day)) {
             notes.add(e.data());
           }
         }).toList();
