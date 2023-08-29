@@ -1,5 +1,4 @@
 import 'package:event_reminder_app/core/components/widgets/svg_widget.dart';
-import 'package:event_reminder_app/core/components/widgets/tag_chosechips.dart';
 import 'package:event_reminder_app/core/components/widgets/title_widget.dart';
 import 'package:event_reminder_app/core/constants/project_variables.dart';
 import 'package:event_reminder_app/core/constants/string_constants.dart';
@@ -8,11 +7,11 @@ import 'package:event_reminder_app/core/extension/string_extension.dart';
 import 'package:event_reminder_app/core/init/utils/widgets/custom_refreshindicator_widget.dart';
 import 'package:event_reminder_app/core/init/utils/widgets/safe_listview_widget.dart';
 import 'package:event_reminder_app/features/home/events_page/event_provider.dart';
+import 'package:event_reminder_app/features/home/events_page/event_state.dart';
 import 'package:event_reminder_app/product/model/notes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
-import 'package:intl/intl.dart';
 
 @immutable
 final class EventView extends ConsumerStatefulWidget {

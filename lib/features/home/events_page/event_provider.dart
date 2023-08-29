@@ -1,13 +1,11 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:equatable/equatable.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-
 import 'package:event_reminder_app/core/init/toast/toast_service.dart';
+import 'package:event_reminder_app/features/home/events_page/event_state.dart';
 import 'package:event_reminder_app/product/components/loading/loading_dialog.dart';
 import 'package:event_reminder_app/product/model/notes.dart';
 import 'package:event_reminder_app/product/model/tag.dart';
 import 'package:event_reminder_app/product/utility/enum/firebase_collections.dart';
 import 'package:event_reminder_app/product/utility/firebase_manager.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final class EventProvider extends StateNotifier<EventState>
     with FirebaseManager {
@@ -62,35 +60,7 @@ final class EventProvider extends StateNotifier<EventState>
   }
 }
 
-class EventState extends Equatable {
-  const EventState({
-    this.eventLoading,
-    this.notes,
-    this.tags,
-  });
 
-  final bool? eventLoading;
-  final List<Note>? notes;
-  final List<Tag>? tags;
-
-  EventState copyWith({
-    bool? eventLoading,
-    List<Note>? notes,
-    List<Tag>? tags,
-  }) {
-    return EventState(
-      eventLoading: eventLoading ?? this.eventLoading,
-      notes: notes ?? this.notes,
-      tags: tags ?? this.tags,
-    );
-  }
-
-  @override
-  List<Object?> get props => [eventLoading, notes, tags];
-
-  @override
-  bool get stringify => true;
-}
 
 /*
   final _loginHiveOperation = LoginHiveOperation();
