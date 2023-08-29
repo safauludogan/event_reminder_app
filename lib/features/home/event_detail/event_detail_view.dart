@@ -1,4 +1,7 @@
+import 'package:event_reminder_app/core/components/widgets/base_appbar.dart';
 import 'package:event_reminder_app/core/components/widgets/sf_calender.dart';
+import 'package:event_reminder_app/core/components/widgets/title_widget.dart';
+import 'package:event_reminder_app/core/constants/string_constants.dart';
 import 'package:event_reminder_app/features/home/event_detail/event_detail_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -36,6 +39,7 @@ class _EventDetailViewState extends ConsumerState<EventDetailView> {
       return const CircularProgressIndicator();
     } else {
       return Scaffold(
+        appBar: BaseAppBar(title: StringConstants.eventDetail),
         body: SafeArea(
           child: CustomSfCalendar(
             calendarController:

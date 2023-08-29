@@ -64,7 +64,8 @@ class EventDetailProvider extends StateNotifier<EventDetailState>
         item.startDate!.day,
       );
       final note = Appointment(
-        subject: item.title.toString(),
+        subject: item.note.toString(),
+        notes: item.title,
         startTime: date.add(
           Duration(
             hours: item.startDate!.hour,

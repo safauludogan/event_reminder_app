@@ -1,3 +1,4 @@
+import 'package:event_reminder_app/core/components/widgets/base_appbar.dart';
 import 'package:event_reminder_app/core/components/widgets/container_date_stadium.dart';
 import 'package:event_reminder_app/core/components/widgets/custom_switch.dart';
 import 'package:event_reminder_app/core/components/widgets/custom_textformfield.dart';
@@ -51,6 +52,7 @@ class _CreateEventViewState extends ConsumerState<CreateEventView> {
 
   Scaffold _baseBody(BuildContext context) {
     return Scaffold(
+      appBar: BaseAppBar(title: StringConstants.newEvent),
       body: SafeArea(
         child: SingleChildScrollView(
           padding: context.paddingScaffold,
@@ -60,8 +62,6 @@ class _CreateEventViewState extends ConsumerState<CreateEventView> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Gap(context.dynamicHeight(0.05)),
-                const TitleView(text: StringConstants.newEvent),
                 Gap(context.dynamicHeight(0.02)),
                 titleTextField(),
                 Gap(context.dynamicHeight(0.01)),
@@ -118,7 +118,7 @@ class _CreateEventViewState extends ConsumerState<CreateEventView> {
     );
   }
 
-  Column tags() {
+  Widget tags() {
     return Column(
       children: [
         Align(

@@ -78,21 +78,3 @@ final class EventProvider extends StateNotifier<EventState>
     return tag;
   }
 }
-
-
-
-/*
-  final _loginHiveOperation = LoginHiveOperation();
-
-  Future<void> getLoginData() async {
-    await _loginHiveOperation.open();
-    final result = _loginHiveOperation.getItem(LoginResponseModel().key);
-  }
-*/
-
-/*
-  TextButton(
-              onPressed: () async => AuthenticationManager().logOut(),
-              child: const Text(StringConstants.logout),
-            ),
-*/

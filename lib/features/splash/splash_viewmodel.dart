@@ -17,8 +17,10 @@ abstract class SplashViewModel extends State<SplashView>
     FirebaseAuth.instance.authStateChanges().listen((User? event) async {
       if (event != null) {
         unawaited(getIt<AppRouter>().replace(const HomeRoute()));
+        getIt<AppRouter>().popUntilRoot();
       } else {
         unawaited(getIt<AppRouter>().replace(const SignInRoute()));
+        getIt<AppRouter>().popUntilRoot();
       }
     });
   }

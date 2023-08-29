@@ -1,5 +1,5 @@
+import 'package:event_reminder_app/core/components/widgets/base_appbar.dart';
 import 'package:event_reminder_app/core/components/widgets/svg_widget.dart';
-import 'package:event_reminder_app/core/components/widgets/title_widget.dart';
 import 'package:event_reminder_app/core/constants/project_variables.dart';
 import 'package:event_reminder_app/core/constants/string_constants.dart';
 import 'package:event_reminder_app/core/extension/context_extension.dart';
@@ -38,6 +38,7 @@ class _EventViewState extends ConsumerState<EventView> {
         await eventProviderNoListener.getDataFromFirebase();
       },
       child: Scaffold(
+        appBar: BaseAppBar(title: StringConstants.eventForToday),
         body: Center(
           child: Padding(
             padding: context.paddingScaffold,
@@ -49,57 +50,48 @@ class _EventViewState extends ConsumerState<EventView> {
   }
 
   Widget _bodyColumn() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Gap(context.dynamicHeight(0.05)),
-        const TitleView(text: StringConstants.eventForToday),
-        Expanded(
-          child: Center(
-            child: SafeListView(
-              noDataWidget: noDataWidget,
-              itemCount: eventProviderListener.notes?.length,
-              itemBuilder: (p0, index) {
-                final item = eventProviderListener.notes![index];
-                return Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 12),
-                  child: InkWell(
-                    onLongPress: () {
-                      eventProviderNoListener.deleteNoteFromFirebase(item.id);
-                    },
-                    child: Column(
-                      children: [
-                        Row(
+    return Center(
+      child: SafeListView(
+        noDataWidget: noDataWidget,
+        itemCount: eventProviderListener.notes?.length,
+        itemBuilder: (p0, index) {
+          final item = eventProviderListener.notes![index];
+          return Padding(
+            padding: const EdgeInsets.symmetric(vertical: 12),
+            child: InkWell(
+              onLongPress: () {
+                eventProviderNoListener.deleteNoteFromFirebase(item.id);
+              },
+              child: Column(
+                children: [
+                  Row(
+                    children: [
+                      CircleDateAvatar(
+                        item: item,
+                      ),
+                      Gap(context.dynamicHeight(0.015)),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            CircleDateAvatar(
-                              item: item,
-                            ),
-                            Gap(context.dynamicHeight(0.015)),
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  timeText(item),
-                                  titleText(item),
-                                  chips(item)
-                                ],
-                              ),
-                            )
+                            timeText(item),
+                            titleText(item),
+                            chips(item)
                           ],
                         ),
-                        const Divider(
-                          color: Colors.black,
-                          thickness: 0.5,
-                        )
-                      ],
-                    ),
+                      )
+                    ],
                   ),
-                );
-              },
+                  const Divider(
+                    color: Colors.black,
+                    thickness: 0.5,
+                  )
+                ],
+              ),
             ),
-          ),
-        ),
-      ],
+          );
+        },
+      ),
     );
   }
 

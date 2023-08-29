@@ -31,6 +31,7 @@ class StringConstants {
       'Please verify your mail address\nWe sent a link!';
   static const String newEvent = 'New event';
   static const String eventForToday = 'Events for today';
+  static const String eventDetail = 'Event detail';
   static const String title = 'Title';
   static const String locationOrMeetingUrl = 'Location or meeting URL';
   static const String allDayEvent = 'All day event';
